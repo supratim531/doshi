@@ -1,0 +1,8 @@
+.vscode/
+.idea/
+.firebase/
+bower_components/
+build/
+node_modules/
+cert.pem
+key.pem
