@@ -162,7 +162,7 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
 
                         <Grid item md={12}>
                             <Typography variant="body1" fontSize={16} fontWeight={700}>Tax Payers</Typography>
-                            <Typography variant="body1" fontSize={16} fontWeight={500} sx={{ wordBreak: "break-all", height: "96px", overflowY: "scroll" }}>{getTaxPayers()}</Typography>
+                            <Typography className="tax-payer-scrollbar" variant="body1" fontSize={16} fontWeight={500} sx={{ wordBreak: "break-all", height: "96px", overflowY: "scroll" }}>{getTaxPayers()}</Typography>
                         </Grid>
 
                         <Grid item md={12}>

@@ -6,7 +6,7 @@ import DrawerNavigation from "../../component/DrawerNavigation";
 const theme = createTheme({
 	typography: {
 		allVariants: {
-			fontFamily: "'Poppins', sans-serif",
+			fontFamily: "'Roboto', sans-serif",
 		},
 	},
 });

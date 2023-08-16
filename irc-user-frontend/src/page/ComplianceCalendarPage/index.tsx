@@ -3,7 +3,6 @@ import React, { Children } from "react";
 import { Box, CardContent, CardHeader, Chip } from "@mui/material";
 
 import MasterHeader from '../../component/MasterHeader';
-import TableComponent from "../../component/TableComponent";
 import IRCPageLoader from '../../component/IRCPageLoader';
 
 import { EditTextDropdown } from "../../component/EditText";
@@ -25,7 +24,6 @@ type CalanderProps = {
 }
 
 const ComplianceCalander = ({ records }: CalanderProps) => {
-    const now = new Date();
     const localizer = momentLocalizer(moment);
 
     const [events, setEvents] = React.useState<any[]>([]);
@@ -43,9 +41,9 @@ const ComplianceCalander = ({ records }: CalanderProps) => {
         });
 
         console.log('Records: ', records);
-        console.log(ev);
+        console.log("ev", ev);
         setEvents(ev);
-    }, [])
+    }, [records])
 
     const handleSelect = (event: {
         start: stringOrDate;
@@ -53,7 +51,6 @@ const ComplianceCalander = ({ records }: CalanderProps) => {
         slots: Date[] | string[];
         action: "select" | "click" | "doubleClick";
     }) => {
-        // return { style: { backgroundColor: 'red' } };
     };
 
     const EventWrapper = (props: any) => {
@@ -63,6 +60,8 @@ const ComplianceCalander = ({ records }: CalanderProps) => {
             return e.title === children.props.children.props.title;
         });
 
+        children.props.style.width = "90%"
+        children.props.style.marginLeft = "6px"
         children.props.style.backgroundColor = result[0].colorCode;
 
         return React.cloneElement(Children.only(children), {
@@ -143,7 +142,6 @@ const ComplianceCalanderPage = () => {
 
     return (
         <>
-
             <Box
                 p={2}
                 sx={{ backgroundColor: 'white', borderRadius: 1 }}>
@@ -174,9 +172,7 @@ const ComplianceCalanderPage = () => {
                     ) : <IRCPageLoader />}
 
                 </CardContent>
-
             </Box>
-
         </>
     );
 }
