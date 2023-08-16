@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid } from "@mui/material";
 
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -13,22 +12,22 @@ type Props = {
     setStateValue: any,
 }
 
-const IRCDatePicker = ({label, value, setStateValue}: Props) => {
-
+const IRCDatePicker = ({ label, value, setStateValue }: Props) => {
     const formatDate = (date: Date) => {
         var month = '' + (date.getMonth() + 1);
         var day = '' + date.getDate();
         var year = date.getFullYear();
 
-        if (month.length < 2) 
+        if (month.length < 2)
             month = '0' + month;
-        if (day.length < 2) 
+        if (day.length < 2)
             day = '0' + day;
 
         return [year, month, day].join('-');
     }
 
     const pickDate = (date: any) => {
+        console.log("Date is:", date);
         setStateValue(formatDate(date.$d));
     }
 
@@ -39,16 +38,28 @@ const IRCDatePicker = ({label, value, setStateValue}: Props) => {
             xs={12}
             item
         >
-        
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                     label={label}
                     value={dayjs(new Date(value))}
-                    onChange ={pickDate}
+                    onChange={pickDate}
+                />
+            </LocalizationProvider> */}
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                    label={label}
+                    value={value ? dayjs(new Date(value)) : ''}
+                    onChange={pickDate}
+                    format='DD-MM-YYYY'
+                    slotProps={{
+                        textField: {
+                            error: false,
+                        },
+                    }}
                 />
             </LocalizationProvider>
         </Grid>
-  );
+    );
 };
 
 export default IRCDatePicker;

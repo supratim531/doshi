@@ -13,8 +13,6 @@ import { Record } from '../../model/record';
 import ClickableTable from "./ClickableTable";
 import RegulatorSidePanel from "./RegulatorSidePanel";
 
-
-
 const columns = [
     {
         accessorKey: "form.section.act.regulator.name",
@@ -28,7 +26,6 @@ const columns = [
         accessorKey: "form_type",
         header: "Form Type",
     },
-    
     {
         id: 'reg',
         columns: [
@@ -51,12 +48,10 @@ const columns = [
             },
         ],
     },
-
     {
         accessorKey: "frequency.name",
         header: "Frequency",
     },
-
     {
         accessorKey: "date_from",
         header: "From",
@@ -68,24 +63,19 @@ const columns = [
 ];
 
 const AllCompliances = () => {
-
     const dispatch = useAppDispatch();
     const allRecordSlice = useAppSelector((state) => state.allRecord);
 
     const [records, serRecords] = React.useState<Record[]>([]);
-
-    
     const [record, setRecord] = React.useState<Record | null>(null);
-
     const [openPanel, setOpenPanel] = React.useState(false);
-
 
     React.useEffect(() => {
         dispatch(allRecord(true));
-    }, [])
+    }, []);
 
     React.useEffect(() => {
-        if(allRecordSlice.recordList.data !== undefined){
+        if (allRecordSlice.recordList.data !== undefined) {
             serRecords(allRecordSlice.recordList.data);
         }
     }, [allRecordSlice]);
@@ -95,39 +85,36 @@ const AllCompliances = () => {
         setRecord(data)
         setOpenPanel(true)
     }
-    
 
-    return(
+    return (
         <>
-            
             <Box
-                p={2} 
-                sx={{backgroundColor: 'white',borderRadius: 1}}>
+                p={2}
+                sx={{ backgroundColor: 'white', borderRadius: 1 }}>
                 <CardHeader
                     title={
                         <MasterHeader
                             title="All Compliances"
-                         />
+                        />
                     }
                 />
                 <CardContent>
-                    {allRecordSlice.loading === false?(            
+                    {allRecordSlice.loading === false ? (
                         <ClickableTable
                             columns={columns}
                             tableData={records}
                             onClick={onClick}
                         />
-                            
-                    ):<IRCPageLoader />}
 
+                    ) : <IRCPageLoader />}
                 </CardContent>
-
             </Box>
-            
-            <RegulatorSidePanel 
+
+            <RegulatorSidePanel
                 record={record}
                 status={openPanel}
-                setStatus={setOpenPanel} />
+                setStatus={setOpenPanel}
+            />
         </>
     );
 }

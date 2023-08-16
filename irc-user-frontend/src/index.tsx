@@ -1,16 +1,16 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import store from "./reduxStore/store";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import { StylesProvider } from "@mui/styles";
 import { CssBaseline } from "@mui/material";
+import { StylesProvider } from "@mui/styles";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <Provider store={store}>
     <BrowserRouter>

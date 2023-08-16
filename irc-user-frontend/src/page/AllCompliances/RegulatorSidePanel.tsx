@@ -20,7 +20,7 @@ type Props = {
 }
 
 const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
-
+    const [email, setEmail] = React.useState("");
     const [eventDate, setEventDate] = React.useState("");
     const [actualDueDate, setActualDueDate] = React.useState("");
 
@@ -172,16 +172,13 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
                     </Grid>
                 </Box>
 
-                <Box style={{ height: 120, borderTop: '1px solid #ccc', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }} px={2}>
-                    <EditText
-                        label="Email ID"
-                        placeholder="Enter Email ID"
-                    />
+                <Box style={{ width: "100%", display: 'flex', borderTop: '1px solid #ccc', flexDirection: 'row', justifyContent: "space-between" }} pl={2} pr={4} py={1}>
+                    <input value={email} onChange={e => setEmail(e.target.value)} style={{ padding: "8px 10px", width: "75%", borderRadius: "4px" }} type="email" placeholder="Enter Email ID" />
                     <Button variant="contained">Share</Button>
                 </Box>
             </Box>
         </SlidingPanel>
-    )
+    );
 }
 
 export default RegulatorSidePanel;
