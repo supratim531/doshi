@@ -1,11 +1,8 @@
 import React from "react";
-
 import { Box, CardContent, CardHeader, Chip } from "@mui/material";
 
 import MasterHeader from '../../component/MasterHeader';
-import TableComponent from "../../component/TableComponent";
 import IRCPageLoader from '../../component/IRCPageLoader';
-
 import { EditTextDropdown } from "../../component/EditText";
 
 import { useAppDispatch, useAppSelector } from "../../reduxStore/hooks";
@@ -16,11 +13,31 @@ import { Business } from '../../model/business';
 import { Record } from '../../model/record';
 import ClickableTable from "../AllCompliances/ClickableTable";
 import RegulatorSidePanel from "../AllCompliances/RegulatorSidePanel";
+import IRCColoredChip from "../../component/IRCColoredChip";
 
 const columns = [
+    // {
+    //     accessorKey: "form.section.act.regulator.name",
+    //     header: "Regulator",
+    // },
     {
-        accessorKey: "form.section.act.regulator.name",
-        header: "Regulator",
+        id: 'regulator',
+        columns: [
+            {
+                header: 'Regulator',
+                Cell: ({ row }: any) => (
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "1rem",
+                        }}
+                    >
+                        <IRCColoredChip backgroundColor={row.original.form?.act?.regulator?.color_code} label={row.original.form?.act?.regulator?.name} />
+                    </Box>
+                ),
+            },
+        ],
     },
     {
         accessorKey: "form.name",
@@ -30,7 +47,6 @@ const columns = [
         accessorKey: "form_type",
         header: "Form Type",
     },
-    
     {
         id: 'reg',
         columns: [
@@ -53,12 +69,10 @@ const columns = [
             },
         ],
     },
-
     {
         accessorKey: "frequency.name",
         header: "Frequency",
     },
-
     {
         accessorKey: "date_from",
         header: "From",
@@ -70,7 +84,6 @@ const columns = [
 ];
 
 const MyCompliances = () => {
-
     const dispatch = useAppDispatch();
 
     const [businesses, setBusinesses] = React.useState<Business[]>([]);
@@ -78,7 +91,6 @@ const MyCompliances = () => {
     const [business, setBusiness] = React.useState<Business | null>(null);
 
     const allBusinessSlice = useAppSelector((state) => state.allBusiness);
-
 
     const myRecordSlice = useAppSelector((state) => state.myRecord);
 
@@ -88,49 +100,45 @@ const MyCompliances = () => {
 
     const [openPanel, setOpenPanel] = React.useState(false);
 
-
     React.useEffect(() => {
-        if(allBusinessSlice.businessList.data !== undefined){
+        if (allBusinessSlice.businessList.data !== undefined) {
             setBusinesses(allBusinessSlice.businessList.data)
-            setBusiness(businesses[0]?businesses[0]:null);
+            setBusiness(businesses[0] ? businesses[0] : null);
         }
     }, [allBusinessSlice]);
 
-  
     React.useEffect(() => {
         dispatch(allBusiness(true));
     }, []);
 
     React.useEffect(() => {
-        if(business !== null){
-            dispatch(myRecord({id: business.id} as any));
+        if (business !== null) {
+            dispatch(myRecord({ id: business.id } as any));
         }
     }, [business]);
 
     React.useEffect(() => {
-        if(myRecordSlice.recordList.data !== undefined){
+        if (myRecordSlice.recordList.data !== undefined) {
             setRecords(myRecordSlice.recordList.data);
             console.log(myRecordSlice.recordList.data);
         }
     }, [myRecordSlice]);
 
-
     const onBusinessSelected = (business: Business | null) => {
         setBusiness(business);
     }
 
-    const onClick = (data: any) => {
+    const onViewPress = (data: any) => {
         console.log(data)
         setRecord(data)
         setOpenPanel(true)
     }
 
-    return(
+    return (
         <>
-            
             <Box
-                p={2} 
-                sx={{backgroundColor: 'white',borderRadius: 1}}>
+                p={2}
+                sx={{ backgroundColor: 'white', borderRadius: 1 }}>
                 <CardHeader
                     title={
                         <MasterHeader
@@ -142,7 +150,7 @@ const MyCompliances = () => {
                                     value={business}
                                     onChange={onBusinessSelected}
                                     md={12}
-                                    sx={{width: 250,}}
+                                    sx={{ width: 250, }}
                                     options={businesses}
                                 />
                             )}
@@ -150,27 +158,21 @@ const MyCompliances = () => {
                     }
                 />
                 <CardContent>
-                    {myRecordSlice.loading === false?(            
-                        // <TableComponent
-                        //     columns={columns}
-                        //     tableData={records}
-                        // />
+                    {myRecordSlice.loading === false ? (
                         <ClickableTable
                             columns={columns}
                             tableData={records}
-                            onClick={onClick}
+                            onView={onViewPress}
                         />
-
-                    ):<IRCPageLoader />}
-
+                    ) : <IRCPageLoader />}
                 </CardContent>
-
             </Box>
-            
+
             <RegulatorSidePanel
                 record={record}
                 status={openPanel}
-                setStatus={setOpenPanel} />
+                setStatus={setOpenPanel}
+            />
         </>
     );
 }

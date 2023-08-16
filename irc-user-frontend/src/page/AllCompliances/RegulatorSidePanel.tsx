@@ -7,11 +7,8 @@ import { Record } from "../../model/record";
 import { Close, NoEncryption } from "@mui/icons-material";
 
 import { Parser } from 'html-to-react'
-import { EditText } from "../../component/EditText";
-
 import IRCDatePicker from "../../component/IRCDatePicker";
 import { Frequency } from "../../model/frequency";
-
 
 type Props = {
     status: boolean;
@@ -26,7 +23,7 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
 
     const getTaxPayers = () => {
         var data = record?.tax_payers.map(value => value.name);
-        return data?.toString();
+        return data?.toString().replaceAll(',', ', ');
     }
 
     const close = () => {
@@ -71,11 +68,10 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
         }
     }
 
-
     React.useEffect(() => {
         if (eventDate.length == 10) {
             const d = new Date(eventDate);
-            var newDate = addDate(d, record?.frequency!!)
+            var newDate = addDate(d, record?.frequency!!);
             setActualDueDate(addZero(newDate.getDate()) + "-" + addZero(newDate.getMonth() + 1) + "-" + newDate.getFullYear().toString())
             console.log(record?.frequency)
         }
@@ -172,9 +168,9 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
                     </Grid>
                 </Box>
 
-                <Box style={{ width: "100%", display: 'flex', borderTop: '1px solid #ccc', flexDirection: 'row', justifyContent: "space-between" }} pl={2} pr={4} py={1}>
-                    <input value={email} onChange={e => setEmail(e.target.value)} style={{ padding: "8px 10px", width: "75%", borderRadius: "4px" }} type="email" placeholder="Enter Email ID" />
-                    <Button variant="contained">Share</Button>
+                <Box style={{ width: "100%", display: 'flex', borderTop: '1px solid #ccc', flexDirection: 'row', justifyContent: "space-between" }} pl={2} pr={4} py={2}>
+                    <input value={email} onChange={e => setEmail(e.target.value)} style={{ padding: "10px", width: "75%", borderRadius: "4px", border: "1px solid #7c8fac", fontSize: "16px" }} type="email" placeholder="Enter Email ID" />
+                    <Button onClick={() => { alert("Under Developement!") }} variant="contained">Share</Button>
                 </Box>
             </Box>
         </SlidingPanel>

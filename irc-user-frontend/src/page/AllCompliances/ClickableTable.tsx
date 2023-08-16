@@ -1,15 +1,14 @@
 import { Visibility } from "@mui/icons-material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import MaterialReactTable from "material-react-table";
 
 type Props = {
 	columns: any[];
 	tableData: any[];
-	onClick?: any;
+	onView?: any;
 };
 
-const ClickableTable = ({ columns, tableData, onClick }: Props) => {
+const ClickableTable = ({ columns, tableData, onView }: Props) => {
 	return (
 		<MaterialReactTable
 			displayColumnDefOptions={{
@@ -25,13 +24,13 @@ const ClickableTable = ({ columns, tableData, onClick }: Props) => {
 			editingMode="modal"
 			enableColumnOrdering
 			enableEditing={
-				onClick !== undefined ? true : false
+				onView !== undefined ? true : false
 			}
 			renderRowActions={({ row, table }) => (
 				<Box sx={{ display: "flex", gap: "1rem" }}>
-					{onClick ? (
+					{onView ? (
 						<Tooltip arrow placement="left" title="View">
-							<IconButton onClick={() => onClick(row.original)}>
+							<IconButton onClick={() => onView(row.original)}>
 								<Visibility />
 							</IconButton>
 						</Tooltip>

@@ -4,9 +4,7 @@ import { Menu } from "./NavbarItem/model";
 import NavbarSection from "./NavbarSection";
 import React from "react";
 
-
 const DrawerNavigation = () => {
-
     const location = useLocation();
     const [active, setActive] = React.useState('/');
 
@@ -34,7 +32,7 @@ const DrawerNavigation = () => {
             {/* <!-- Sidebar scroll--> */}
             <div>
                 <div className="brand-logo d-flex align-items-center justify-content-center">
-                    <a href="./index.html" className="text-nowrap logo-img">
+                    <a href="/dashboard" className="text-nowrap logo-img">
                         {/*<img src="../assets/images/logos/new_logo.jpg" width="180" alt="" />*/}
                         <img src="../assets/images/logos/new_logo.jpg" width="50" alt="" />
                     </a>
@@ -43,9 +41,9 @@ const DrawerNavigation = () => {
                     </div>
                 </div>
                 {/* <!-- Sidebar navigation--> */}
-                <nav className="sidebar-nav scroll-sidebar" data-simplebar="" style={{backgroundColor:""}}>
+                <nav className="sidebar-nav scroll-sidebar" data-simplebar="" style={{ backgroundColor: "" }}>
 
-                    <ul id="sidebarnav" style={{paddingLeft:"0px"}}>
+                    <ul id="sidebarnav" style={{ paddingLeft: "0px" }}>
 
                         <NavbarSection name="" active={active} menus={menu} />
 
@@ -56,7 +54,7 @@ const DrawerNavigation = () => {
             </div >
             {/* <!-- End Sidebar scroll--> */}
         </aside >
-    )
+    );
 }
 
 export default DrawerNavigation;

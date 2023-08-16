@@ -3,7 +3,6 @@ import React from "react";
 import { Box, CardContent, CardHeader, Chip } from "@mui/material";
 
 import MasterHeader from '../../component/MasterHeader';
-import TableComponent from "../../component/TableComponent";
 import IRCPageLoader from '../../component/IRCPageLoader';
 
 import { useAppDispatch, useAppSelector } from "../../reduxStore/hooks";
@@ -12,11 +11,31 @@ import { allRecord } from "../../network/store/record/allRecord";
 import { Record } from '../../model/record';
 import ClickableTable from "./ClickableTable";
 import RegulatorSidePanel from "./RegulatorSidePanel";
+import IRCColoredChip from "../../component/IRCColoredChip";
 
 const columns = [
+    // {
+    //     accessorKey: "form.act.regulator.name",
+    //     header: "Regulator",
+    // },
     {
-        accessorKey: "form.section.act.regulator.name",
-        header: "Regulator",
+        id: 'regulator',
+        columns: [
+            {
+                header: 'Regulator',
+                Cell: ({ row }: any) => (
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "1rem",
+                        }}
+                    >
+                        <IRCColoredChip backgroundColor={row.original.form?.act?.regulator?.color_code} label={row.original.form?.act?.regulator?.name} />
+                    </Box>
+                ),
+            },
+        ],
     },
     {
         accessorKey: "form.name",
@@ -80,7 +99,7 @@ const AllCompliances = () => {
         }
     }, [allRecordSlice]);
 
-    const onClick = (data: any) => {
+    const onViewPress = (data: any) => {
         console.log(data)
         setRecord(data)
         setOpenPanel(true)
@@ -103,9 +122,8 @@ const AllCompliances = () => {
                         <ClickableTable
                             columns={columns}
                             tableData={records}
-                            onClick={onClick}
+                            onView={onViewPress}
                         />
-
                     ) : <IRCPageLoader />}
                 </CardContent>
             </Box>
