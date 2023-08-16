@@ -1,5 +1,4 @@
 import { Visibility } from "@mui/icons-material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import MaterialReactTable from "material-react-table";
 

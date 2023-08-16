@@ -1,5 +1,4 @@
 import { Grid } from "@mui/material";
-
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -13,7 +12,6 @@ type Props = {
 }
 
 const IRCDatePicker = ({ label, value, setStateValue }: Props) => {
-
     const formatDate = (date: Date) => {
         var month = '' + (date.getMonth() + 1);
         var day = '' + date.getDate();

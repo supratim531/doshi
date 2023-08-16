@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './page/HomePage';
 import LoginPage from './page/auth/LoginPage';
@@ -21,7 +20,6 @@ import UserDataField from './component/IRCDataField/UserDataField';
 import Profile from './page/myProfile/Profile';
 
 const Router = () => {
-
     return (
         <BrowserRouter>
             <Routes>
@@ -41,18 +39,16 @@ const Router = () => {
 
                     <Route path='/data-fields' element={<PrivateRoute component={DataFieldPage} />}>
                     </Route>
-                    
-                    <Route path='/business-data' element={<PrivateRoute component={BusinessDataField}/>}/>
-                    <Route path='/user-data' element={<PrivateRoute component={UserDataField}/>}/>
+
+                    <Route path='/business-data' element={<PrivateRoute component={BusinessDataField} />} />
+                    <Route path='/user-data' element={<PrivateRoute component={UserDataField} />} />
 
                     <Route path='/users' element={<PrivateRoute component={UserPage} />} />
                     <Route path='/buisnesses' element={<PrivateRoute component={BusinessPage} />} />
                 </Route>
             </Routes>
         </BrowserRouter>
-
     );
-
 }
 
 export default Router;

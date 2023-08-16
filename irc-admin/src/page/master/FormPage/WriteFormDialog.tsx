@@ -49,7 +49,7 @@ const formTypes = [
     }
 ] as FormType[];
 
-const WriteFormDialog = ({dialogState, setDialogState, form, setForm, onSuccessButtonClick} : Props) => {
+const WriteFormDialog = ({ dialogState, setDialogState, form, setForm, onSuccessButtonClick }: Props) => {
 
     const [regulators, setRegulators] = React.useState<SimpleRegulator[]>([]);
     const [acts, setActs] = React.useState<SimpleAct[]>([]);
@@ -60,7 +60,7 @@ const WriteFormDialog = ({dialogState, setDialogState, form, setForm, onSuccessB
     }, []);
 
     const [name, setName] = React.useState<string>("");
-    const [formType, setFormType] = React.useState<FormType|null>(null);
+    const [formType, setFormType] = React.useState<FormType | null>(null);
     const [regulator, setRegulator] = React.useState<SimpleRegulator | null>(null);
     const [act, setAct] = React.useState<SimpleAct | null>(null);
     const [section, setSection] = React.useState<SimpleSection | null>(null);
@@ -70,16 +70,16 @@ const WriteFormDialog = ({dialogState, setDialogState, form, setForm, onSuccessB
     const [snackbar, setSnackbar] = React.useState(false);
 
     React.useEffect(() => {
-        if(form !== null){
+        if (form !== null) {
             console.log(form)
             setName(form.name);
-            const sr = {id: form.act.regulator.id, name: form.act.regulator.name} as SimpleRegulator;
-            const ft = {id:form.id,name:form.form_type} as FormType;
+            const sr = { id: form?.act?.regulator?.id, name: form?.act?.regulator?.name } as SimpleRegulator;
+            const ft = { id: form.id, name: form.form_type } as FormType;
             setFormType(ft);
             setRegulator(sr);
-            const sa = {id: form.act.id, name: form.act.name} as SimpleAct;
+            const sa = { id: form?.act?.id, name: form?.act?.name } as SimpleAct;
             setAct(sa);
-            const ss = {id: form.sections[0].id, name: form.sections[0].name} as SimpleSection;
+            const ss = { id: form?.sections[0]?.id, name: form?.sections[0]?.name } as SimpleSection;
             setSection(ss);
             setRemarks(form.remarks);
         }
@@ -91,7 +91,7 @@ const WriteFormDialog = ({dialogState, setDialogState, form, setForm, onSuccessB
         setAct(null);
         setSections([]);
         setSection(null);
-        if(simpleRegulator !== null){
+        if (simpleRegulator !== null) {
             const simpleActBody = {
                 regulator_id: simpleRegulator.id
             } as SimpleRegulatorActBody;
@@ -104,7 +104,7 @@ const WriteFormDialog = ({dialogState, setDialogState, form, setForm, onSuccessB
         setAct(simpleAct);
         setSections([]);
         setSection(null);
-        if(simpleAct !== null){
+        if (simpleAct !== null) {
             const simpleSectionBody = {
                 act_id: simpleAct.id
             } as SimpleActSectionBody;
@@ -117,14 +117,14 @@ const WriteFormDialog = ({dialogState, setDialogState, form, setForm, onSuccessB
     }
 
     React.useEffect(() => {
-        if(response !== null){
+        if (response !== null) {
             setSnackbar(true);
-            if(response.status === 201 || response.status === 202){
+            if (response.status === 201 || response.status === 202) {
                 onSuccessButtonClick();
-                if(form === null){
+                if (form === null) {
                     clear();
                 }
-                
+
             }
         }
     }, [response]);
@@ -132,7 +132,7 @@ const WriteFormDialog = ({dialogState, setDialogState, form, setForm, onSuccessB
 
     function successBtnClick() {
 
-        if(form !== null){
+        if (form !== null) {
             const formRequest = {
                 id: form.id,
                 name: name,
@@ -141,7 +141,7 @@ const WriteFormDialog = ({dialogState, setDialogState, form, setForm, onSuccessB
                 remarks: remarks
             } as FormBody;
 
-            updateForm(formRequest, setResponse);    
+            updateForm(formRequest, setResponse);
         } else {
             const formRequest = {
                 name: name,
@@ -149,10 +149,10 @@ const WriteFormDialog = ({dialogState, setDialogState, form, setForm, onSuccessB
                 sections: section?.id,
                 remarks: remarks
             } as FormBody;
-            
+
             addForm(formRequest, setResponse);
         }
-        
+
     }
 
     const clear = () => {
@@ -174,16 +174,16 @@ const WriteFormDialog = ({dialogState, setDialogState, form, setForm, onSuccessB
         setSnackbar(false);
     }
 
-	return(
-		<WriteDialog
-            title={form?"Update Form":"Add Form"}
+    return (
+        <WriteDialog
+            title={form ? "Update Form" : "Add Form"}
             dialogState={dialogState}
             setDialogState={setDialogState}
-            successText={form?"Update":"Add"}
+            successText={form ? "Update" : "Add"}
             onSuccess={successBtnClick}
             onCancel={cancel}
         >
-        	<Grid
+            <Grid
                 container
                 pt={1}
                 spacing={2}
@@ -200,7 +200,7 @@ const WriteFormDialog = ({dialogState, setDialogState, form, setForm, onSuccessB
                     label="Form Type"
                     placeholder="e.g. Income Tax"
                     value={formType}
-                    onChange={(sformType: FormType | null) => setFormType(sformType) }
+                    onChange={(sformType: FormType | null) => setFormType(sformType)}
                     options={formTypes}
                     md={6}
                     required
@@ -233,22 +233,22 @@ const WriteFormDialog = ({dialogState, setDialogState, form, setForm, onSuccessB
                 <EditText
                     label="Remarks"
                     value={remarks}
-                	setStateValue={setRemarks}
-                    placeholder={name?"Write something about "+name+"...":null}
+                    setStateValue={setRemarks}
+                    placeholder={name ? "Write something about " + name + "..." : null}
                     multiline
                     minRows={4}
-                />                
+                />
             </Grid>
 
-            {response!==null?(
-                    <IRCSnackbar
-                        open={snackbar}
-                        setOpen={setSnackbar}
-                        message={response?.message}
-                        status={response?.status} />
-                ):null}
+            {response !== null ? (
+                <IRCSnackbar
+                    open={snackbar}
+                    setOpen={setSnackbar}
+                    message={response?.message}
+                    status={response?.status} />
+            ) : null}
         </WriteDialog>
-	);
+    );
 }
 
 export default WriteFormDialog;

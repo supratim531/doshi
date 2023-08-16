@@ -1,5 +1,6 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
 import React from "react";
+
+import { Box, Button, Grid, Typography } from "@mui/material";
 import SlidingPanel from 'react-sliding-side-panel';
 import 'react-sliding-side-panel/lib/index.css';
 import { Record } from "../../model/record";
@@ -7,11 +8,8 @@ import { Record } from "../../model/record";
 import { Close, NoEncryption } from "@mui/icons-material";
 
 import { Parser } from 'html-to-react'
-import { EditText } from "../../component/EditText";
-
 import IRCDatePicker from "../../component/IRCDatePicker";
 import { Frequency } from "../../model/frequency";
-
 
 type Props = {
     status: boolean;
