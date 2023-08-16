@@ -4,9 +4,7 @@ import { Menu } from "./NavbarItem/model";
 import NavbarSection from "./NavbarSection";
 import React from "react";
 
-
 const DrawerNavigation = () => {
-
     const location = useLocation();
     const [active, setActive] = React.useState('/');
 
@@ -54,7 +52,7 @@ const DrawerNavigation = () => {
             {/* <!-- Sidebar scroll--> */}
             <div>
                 <div className="brand-logo d-flex align-items-center justify-content-center">
-                    <a href="./index.html" className="text-nowrap logo-img">
+                    <a href="/" className="text-nowrap logo-img">
                         {/*<img src="../assets/images/logos/new_logo.jpg" width="180" alt="" />*/}
                         <img src="../assets/images/logos/new_logo.jpg" width="50" alt="" />
                     </a>

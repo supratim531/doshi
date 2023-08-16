@@ -3,7 +3,6 @@ import LogoutComponent from '../../page/auth/LogoutComponent';
 import { Link } from "react-router-dom";
 
 const IRCNavbar = () => {
-
     const [logout, setLogout] = React.useState(false);
 
     const onLogoutCancel = () => {
@@ -51,7 +50,7 @@ const IRCNavbar = () => {
             {logout === true?(<LogoutComponent onCancel={onLogoutCancel} />):null}
 
         </header>
-    )
+    );
 }
 
 export default IRCNavbar;

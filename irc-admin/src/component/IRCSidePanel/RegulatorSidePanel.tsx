@@ -172,9 +172,9 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
                     </Grid>
                 </Box>
 
-                <Box style={{ width: "100%", display: 'flex', borderTop: '1px solid #ccc', flexDirection: 'row', justifyContent: "space-between" }} pl={2} pr={4} py={1}>
-                    <input value={email} onChange={e => setEmail(e.target.value)} style={{ padding: "8px 10px", width: "75%", borderRadius: "4px" }} type="email" placeholder="Enter Email ID" />
-                    <Button onClick={() => { alert("This feature is under development") }} variant="contained">Share</Button>
+                <Box style={{ width: "100%", display: 'flex', borderTop: '1px solid #ccc', flexDirection: 'row', justifyContent: "space-between" }} pl={2} pr={4} py={2}>
+                    <input value={email} onChange={e => setEmail(e.target.value)} style={{ padding: "10px", width: "75%", borderRadius: "4px", border: "1px solid #7c8fac", fontSize: "16px" }} type="email" placeholder="Enter Email ID" />
+                    <Button onClick={() => { alert("Under Developement!") }} variant="contained">Share</Button>
                 </Box>
             </Box>
         </SlidingPanel>
