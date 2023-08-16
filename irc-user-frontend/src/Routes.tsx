@@ -14,7 +14,7 @@ import BusinessDetailsPage from './page/business/BusinessDetailsPage';
 
 import AllCompliances from "./page/AllCompliances";
 
-import MyCompliances from "./page/MyCompliances";
+import MyCompliances from "./page/MyCompliances/Index";
 import ComplianceCalendarPage from "./page/ComplianceCalendarPage";
 
 import AppFrame from "./layout/AppFrame";
