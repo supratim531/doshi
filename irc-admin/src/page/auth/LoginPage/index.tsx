@@ -5,9 +5,7 @@ import { axiosClient } from '../../../network/axiosClient';
 import { AuthResponse, AuthResponseData, LoginBody } from '../../../model/auth';
 import IRCSnackbar from '../../../component/IRCSnackbar';
 
-
 const LoginPage = () => {
-
     let navigate = useNavigate();
 
     const token = localStorage.getItem("token");
@@ -29,14 +27,14 @@ const LoginPage = () => {
     }, []);
 
     React.useEffect(() => {
-        if(response != null) {
-            if(response?.data?.data?.user_type === "admin"){
+        if (response != null) {
+            if (response?.data?.data?.user_type === "admin") {
                 localStorage.setItem("token", response?.data?.data?.token);
                 localStorage.setItem("user_type", response?.data?.data?.user_type);
                 window.location.reload();
                 setMessage(response?.data?.message);
-                setStatus(201);                   
-            }else{
+                setStatus(201);
+            } else {
                 setMessage("Authentication Failed");
                 setStatus(403);
             }
@@ -46,24 +44,22 @@ const LoginPage = () => {
     }, [response]);
 
     const loginAPI = async (payload: LoginBody) => {
-        
+
         return await axiosClient
-            .post(`auth/login`,payload)
+            .post(`auth/login`, payload)
             .then((response: any) => setResponse(response))
             .catch((error: any) => setResponse(error.response));
     }
 
     const login = (event: any) => {
         event.preventDefault();
-        console.log(email+" : "+ password);
+        console.log(email + " : " + password);
         const loginBody = {
             email: email,
             password: password
         } as LoginBody;
         loginAPI(loginBody);
     }
-
-    
 
     return (
         <div className="page-wrapper" >
@@ -81,17 +77,16 @@ const LoginPage = () => {
                                     <form onSubmit={login}>
                                         <div className="mb-3">
                                             <label className="form-label">Email Id</label>
-                                            <input onChange={(e:any) => setEmail(e.target.value)} value={email} type="email" className="form-control"  aria-describedby="emailHelp" />
+                                            <input onChange={(e: any) => setEmail(e.target.value)} value={email} type="email" className="form-control" aria-describedby="emailHelp" />
                                         </div>
                                         <div className="mb-4">
                                             <label className="form-label">Password</label>
-                                            <input onChange={(e:any) => setPassword(e.target.value)} value={password} type="password" className="form-control" />
+                                            <input onChange={(e: any) => setPassword(e.target.value)} value={password} type="password" className="form-control" />
                                         </div>
-                                        <div className="d-none d-flex mb-4" style={{justifyContent: "flex-end",}}>
+                                        <div className="d-none d-flex mb-4" style={{ justifyContent: "flex-end", }}>
                                             <a className="text-primary fw-bold" href="./index.html">Forgot Password ?</a>
                                         </div>
                                         <button type='submit' className="btn btn-primary w-100 py-8 fs-4 mb-2 rounded-2">Sign In</button>
-                                        
                                     </form>
                                 </div>
                             </div>
@@ -99,15 +94,15 @@ const LoginPage = () => {
                     </div>
                 </div>
             </div>
-            {snackbar!==false?(
-                    <IRCSnackbar
-                        open={snackbar}
-                        setOpen={setSnackbar}
-                        message={message}
-                        status={status} />
-                ):null}
+            {snackbar !== false ? (
+                <IRCSnackbar
+                    open={snackbar}
+                    setOpen={setSnackbar}
+                    message={message}
+                    status={status} />
+            ) : null}
         </div>
-    )
+    );
 }
 
 export default LoginPage;

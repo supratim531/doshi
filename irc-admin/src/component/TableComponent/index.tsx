@@ -1,18 +1,17 @@
-import { Edit } from "@mui/icons-material";
+import { Edit, Visibility } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import MaterialReactTable, { MRT_Row } from "material-react-table";
-import * as React from "react";
 
 type Props = {
     columns: any[];
     tableData: any[];
     onEdit?: any;
     onDelete?: any;
+    onView?: any;
 };
 
-const TableComponent = ({ columns, tableData, onEdit, onDelete }: Props) => {
-
+const TableComponent = ({ columns, tableData, onEdit, onDelete, onView }: Props) => {
     return (
         <MaterialReactTable
             displayColumnDefOptions={{
@@ -36,6 +35,14 @@ const TableComponent = ({ columns, tableData, onEdit, onDelete }: Props) => {
                         <Tooltip arrow placement="left" title="Edit">
                             <IconButton onClick={() => onEdit(row.original)}>
                                 <Edit />
+                            </IconButton>
+                        </Tooltip>
+                    ) : null}
+
+                    {onView ? (
+                        <Tooltip arrow placement="left" title="View">
+                            <IconButton onClick={() => onView(row.original)}>
+                                <Visibility />
                             </IconButton>
                         </Tooltip>
                     ) : null}

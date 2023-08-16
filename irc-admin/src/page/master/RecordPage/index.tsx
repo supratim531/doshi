@@ -11,6 +11,7 @@ import WriteRecordDialog from './WriteRecordDialog';
 
 import { Record } from '../../../model/record';
 import { axiosClient } from '../../../network/axiosClient';
+import RegulatorSidePanel from '../../../component/IRCSidePanel/RegulatorSidePanel';
 
 const columns = [
     {
@@ -42,34 +43,40 @@ const columns = [
 ];
 
 const RecordPage = () => {
-
-   const [records, setRecords] = React.useState<Record[]>([]);
+    const [records, setRecords] = React.useState<Record[]>([]);
 
     const [openAddDialog, setOpenAddDialog] = React.useState(false);
     const [deleteDialog, setDeleteDialog] = React.useState(false);
     const [record, setRecord] = React.useState<Record | null>(null);
 
     const [loaded, setLoaded] = React.useState(false);
+    const [openPanel, setOpenPanel] = React.useState(false);
 
     React.useEffect(() => {
         setLoaded(true);
         getAllRecordAPI()
-        .then(() => {
-            setLoaded(false)
-        })
+            .then(() => {
+                setLoaded(false)
+            })
     }, [])
 
     const getAllRecordAPI = async () => {
-    
+
         return await axiosClient
-          .get(`record`)
-          .then((response: any) => {setRecords(response?.data?.data)})
-          .catch((error: any) => console.log(error?.response?.data));
+            .get(`record`)
+            .then((response: any) => { setRecords(response?.data?.data) })
+            .catch((error: any) => console.log(error?.response?.data));
     }
-    
+
     const onEditPress = (record: Record) => {
         setRecord(record);
         setOpenAddDialog(true);
+    }
+
+    const onViewPress = (data: any) => {
+        console.log(data)
+        setRecord(data)
+        setOpenPanel(true)
     }
 
     // const onDeteleClicked = (record: any) => {
@@ -91,12 +98,11 @@ const RecordPage = () => {
         getAllRecordAPI();
     }
 
-	return(
+    return (
         <>
-            
             <Box
-                p={2} 
-                sx={{backgroundColor: 'white',borderRadius: 1}}>
+                p={2}
+                sx={{ backgroundColor: 'white', borderRadius: 1 }}>
                 <CardHeader
                     title={
                         <MasterHeader
@@ -110,16 +116,14 @@ const RecordPage = () => {
                             columns={columns}
                             tableData={records}
                             onEdit={onEditPress}
+                            onView={onViewPress}
                         />
-                            
-                    ):<IRCPageLoader />}
-
-                </CardContent>   
-
+                    ) : <IRCPageLoader />}
+                </CardContent>
             </Box>
 
             {/*DIALOG*/}
-            {openAddDialog?(
+            {openAddDialog ? (
                 <WriteRecordDialog
                     record={record}
                     setRecord={setRecord}
@@ -127,7 +131,12 @@ const RecordPage = () => {
                     setDialogState={setOpenAddDialog}
                     onSuccessButtonClick={onSuccessButtonClick}
                 />) : null}
-            
+
+            <RegulatorSidePanel
+                record={record}
+                status={openPanel}
+                setStatus={setOpenPanel}
+            />
         </>
     );
 }
