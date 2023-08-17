@@ -22,6 +22,7 @@ const columns = [
         id: 'regulator',
         columns: [
             {
+                id: 'regulatorName',
                 header: 'Regulator',
                 Cell: ({ row }: any) => (
                     <Box
@@ -37,36 +38,40 @@ const columns = [
             },
         ],
     },
-    {
-        accessorKey: "form.name",
-        header: "Form",
-    },
+    // {
+    //     accessorKey: "form.name",
+    //     header: "Form",
+    // },
     {
         accessorKey: "form_type",
-        header: "Form Type",
+        header: "Compliance Type",
     },
     {
-        id: 'reg',
-        columns: [
-            {
-                id: 'taxPayer',
-                header: "Tax Payers",
-                Cell: ({ row }: any) => (
-                    <Box
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "0.2rem",
-                        }}
-                    >
-                        {row.original.tax_payers.map((item: any) => (
-                            <Chip label={item.name}></Chip>
-                        ))}
-                    </Box>
-                ),
-            },
-        ],
+        accessorKey: "form.form_type",
+        header: "Form Type",
     },
+    // {
+    //     id: 'reg',
+    //     columns: [
+    //         {
+    //             id: 'taxPayer',
+    //             header: "Tax Payers",
+    //             Cell: ({ row }: any) => (
+    //                 <Box
+    //                     sx={{
+    //                         display: "flex",
+    //                         alignItems: "center",
+    //                         gap: "0.2rem",
+    //                     }}
+    //                 >
+    //                     {row.original.tax_payers.map((item: any) => (
+    //                         <Chip label={item.name}></Chip>
+    //                     ))}
+    //                 </Box>
+    //             ),
+    //         },
+    //     ],
+    // },
     {
         accessorKey: "frequency.name",
         header: "Frequency",
@@ -78,6 +83,10 @@ const columns = [
     {
         accessorKey: "date_to",
         header: "To"
+    },
+    {
+        accessorKey: "actual_date",
+        header: "Due Date"
     }
 ];
 

@@ -17,6 +17,7 @@ import { Record } from '../../model/record';
 import { Calendar, momentLocalizer, stringOrDate } from "react-big-calendar";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
+import RegulatorSidePanel from "../AllCompliances/RegulatorSidePanel";
 
 type CalanderProps = {
     records: Record[],
@@ -26,6 +27,10 @@ const ComplianceCalander = ({ records }: CalanderProps) => {
     const localizer = momentLocalizer(moment);
 
     const [events, setEvents] = React.useState<any[]>([]);
+
+    const [record, setRecord] = React.useState<Record | null>(null);
+
+    const [openPanel, setOpenPanel] = React.useState(false);
 
     React.useEffect(() => {
         var ev = records.map((record: Record, index: number) => {
@@ -71,24 +76,37 @@ const ComplianceCalander = ({ records }: CalanderProps) => {
         });
     };
 
+    const onViewPress = (data: any) => {
+        setRecord(records.filter(record => record.id === data)[0]);
+        setOpenPanel(true)
+    }
+
     return (
-        <Box>
-            <Calendar
-                selectable
-                components={{
-                    eventWrapper: EventWrapper
-                }}
-                localizer={localizer}
-                defaultDate={new Date()}
-                defaultView="month"
-                events={events}
-                style={{ height: "70vh" }}
-                step={15}
-                timeslots={2}
-                onSelectEvent={(event: any) => alert(event.title)}
-                onSelectSlot={(event: any) => handleSelect(event)}
+        <>
+            <Box>
+                <Calendar
+                    selectable
+                    components={{
+                        eventWrapper: EventWrapper
+                    }}
+                    localizer={localizer}
+                    defaultDate={new Date()}
+                    defaultView="month"
+                    events={events}
+                    style={{ height: "70vh" }}
+                    step={15}
+                    timeslots={2}
+                    onSelectSlot={(event: any) => handleSelect(event)}
+                    onSelectEvent={(event: any) => onViewPress(event.id)}
+                />
+            </Box>
+
+            <RegulatorSidePanel
+                record={record}
+                status={openPanel}
+                setStatus={setOpenPanel}
             />
-        </Box>
+        </>
     );
 }
 
@@ -104,8 +122,6 @@ const ComplianceCalanderPage = () => {
     const myRecordSlice = useAppSelector((state) => state.myRecord);
 
     const [records, setRecords] = React.useState<Record[]>([]);
-
-    const [record, setRecord] = React.useState<Record | null>(null);
 
     React.useEffect(() => {
         if (allBusinessSlice.businessList.data !== undefined) {
