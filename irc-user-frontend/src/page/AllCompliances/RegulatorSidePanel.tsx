@@ -4,11 +4,12 @@ import SlidingPanel from 'react-sliding-side-panel';
 import 'react-sliding-side-panel/lib/index.css';
 import { Record } from "../../model/record";
 
-import { Close, NoEncryption } from "@mui/icons-material";
+import { Close } from "@mui/icons-material";
 
 import { Parser } from 'html-to-react'
 import IRCDatePicker from "../../component/IRCDatePicker";
 import { Frequency } from "../../model/frequency";
+import InfoButton from "../../component/InfoButton";
 
 type Props = {
     status: boolean;
@@ -93,24 +94,24 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
                 <Box p={2} style={{ flexGrow: 1, overflow: 'hidden', overflowY: 'scroll' }}>
                     <Grid container spacing={2}>
                         <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Record Type</Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Record Type <InfoButton title={"This is Text"} /></Typography>
                             <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.form_type}</Typography>
                         </Grid>
                         <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Regulator</Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Regulator <InfoButton title={"This is Text"} /></Typography>
                             <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.form?.act?.regulator.name}</Typography>
                         </Grid>
                         <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Financial Year</Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Financial Year <InfoButton title={"This is Text"} /></Typography>
                             <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.financial_year.financial_year}</Typography>
                         </Grid>
                         <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Assesment Year</Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Assesment Year <InfoButton title={"This is Text"} /></Typography>
                             <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.financial_year.assesment_year}</Typography>
                         </Grid>
                         {record?.form_type !== 'even' ? (
                             <Grid item md={6}>
-                                <Typography variant="body1" fontSize={16} fontWeight={700}>From Date</Typography>
+                                <Typography variant="body1" fontSize={16} fontWeight={700}>From Date <InfoButton title={"This is Text"} /></Typography>
                                 <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.date_from}</Typography>
                             </Grid>
                         ) : null
@@ -118,7 +119,7 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
 
                         {record?.form_type !== 'even' ? (
                             <Grid item md={6}>
-                                <Typography variant="body1" fontSize={16} fontWeight={700}>To Date</Typography>
+                                <Typography variant="body1" fontSize={16} fontWeight={700}>To Date <InfoButton title={"This is Text"} /></Typography>
                                 <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.date_to}</Typography>
                             </Grid>
                         ) : null
@@ -129,12 +130,12 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
                             <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.form.form_type}</Typography>
                         </Grid>
                         <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Returns / Forms / Certifications</Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Returns / Forms / Certifications <InfoButton title={"This is Text"} /></Typography>
                             <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.form.name}</Typography>
                         </Grid>
 
                         <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Frequency</Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Frequency <InfoButton title={"This is Text"} /></Typography>
                             <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.frequency.name}</Typography>
                         </Grid>
 
@@ -152,17 +153,17 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
                         }
 
                         <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Actual Due Date</Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Actual Due Date <InfoButton title={"This is Text"} /></Typography>
                             <Typography variant="body1" fontSize={16} fontWeight={500}>{actualDueDate}</Typography>
                         </Grid>
 
                         <Grid item md={12}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Tax Payers</Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Tax Payers <InfoButton title={"This is Text"} /></Typography>
                             <Typography className="tax-payer-scrollbar" variant="body1" fontSize={16} fontWeight={500} sx={{ wordBreak: "break-all", height: "96px", overflowY: "scroll" }}>{getTaxPayers()}</Typography>
                         </Grid>
 
                         <Grid item md={12}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Description</Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Description <InfoButton title={"This is Text"} /></Typography>
                             {Parser().parse(record?.description)}
                         </Grid>
                     </Grid>

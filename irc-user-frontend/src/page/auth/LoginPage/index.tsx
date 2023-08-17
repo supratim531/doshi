@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Avatar, Alert, Button, Box, Paper, TextField, Typography, Grid} from '@mui/material';
+import { Avatar, Alert, Button, Box, Paper, TextField, Typography, Grid } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import Copyright from '../../../component/Copyright';
@@ -11,11 +11,7 @@ import { login } from '../../../network/store/auth/login';
 
 import { LoginBody, AuthResponseData } from '../../../model/auth';
 
-
-
-
 const LoginPage = () => {
-
     const dispatch = useAppDispatch();
 
     let navigate = useNavigate();
@@ -37,24 +33,23 @@ const LoginPage = () => {
     const loginSlice = useAppSelector((state) => state.login);
 
     React.useEffect(() => {
-        if(loginSlice.response.data !== undefined){
+        if (loginSlice.response.data !== undefined) {
             setAuthResponseData(loginSlice.response.data);
             setSuccessResponse(loginSlice.response.message);
             setErrorResponse(null);
         }
 
-        if(loginSlice.error.message !== undefined){
+        if (loginSlice.error.message !== undefined) {
             setErrorResponse(loginSlice.error.message);
         }
     }, [loginSlice]);
 
     const onLoginBtnClick = () => {
-
         const loginBody = {
             email: email,
             password: password,
         } as LoginBody;
-        
+
         setErrorResponse(null);
         setSuccessResponse(null);
 
@@ -62,20 +57,25 @@ const LoginPage = () => {
     };
 
     React.useEffect(() => {
-        if(loginResponseData !== null && (loginResponseData.user_type === "user" || loginResponseData.user_type === "admin")){
+        if (loginResponseData !== null && (loginResponseData.user_type === "user" || loginResponseData.user_type === "admin")) {
             localStorage.setItem("token", loginResponseData.token);
             localStorage.setItem("user_type", loginResponseData.user_type);
 
             setTimeout(() => {
-                
-                window.location.reload();                   
+
+                window.location.reload();
 
             }, 1000);
         }
     }, [loginResponseData]);
 
+    const onEnterKeyPress = (e: any) => {
+        if (e.key === "Enter") {
+            onLoginBtnClick();
+        }
+    }
+
     return (
-    
         <Grid container component="main" sx={{ height: '100vh' }}>
             <Grid
                 item
@@ -101,52 +101,54 @@ const LoginPage = () => {
                         alignItems: 'center',
                     }}
                 >
-            
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <LockOutlinedIcon />
                     </Avatar>
-                    
+
                     <Typography component="h1" variant="h5">
                         Login
                     </Typography>
-                    
+
                     <Box sx={{ mt: 1, width: '100%', }}>
                         <TextField
                             label="Email Address"
                             autoComplete="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            onKeyDown={e => onEnterKeyPress(e)}
                             margin="normal"
                             required
                             fullWidth
                             autoFocus
                         />
-                        
+
                         <TextField
                             label="Password"
                             type="password"
                             autoComplete="current-password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            onKeyDown={e => onEnterKeyPress(e)}
                             margin="normal"
-                            sx={{mb: 2}}
+                            sx={{ mb: 2 }}
                             required
                             fullWidth
                         />
 
-                        {errorResponse !== null && errorResponse !== ''?<Alert sx={{width: '100%',}} severity="error">{errorResponse}</Alert>: null}
-                        {successResponse !== null && successResponse !== ''?<Alert sx={{width: '100%',}} severity="success">{successResponse}</Alert>: null}
+                        {errorResponse !== null && errorResponse !== '' ? <Alert sx={{ width: '100%', }} severity="error">{errorResponse}</Alert> : null}
+                        {successResponse !== null && successResponse !== '' ? <Alert sx={{ width: '100%', }} severity="success">{successResponse}</Alert> : null}
 
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             onClick={onLoginBtnClick}
-                            sx={{ mt: 2,mb: 2, height: 45, }}
+                            onKeyDown={e => onEnterKeyPress(e)}
+                            sx={{ mt: 2, mb: 2, height: 45, }}
                         >
                             <Typography>Login</Typography>
                         </Button>
-              
+
                         <Grid container>
                             <Grid item xs>
                                 <Link to="#">
@@ -167,4 +169,4 @@ const LoginPage = () => {
     );
 }
 
-export default LoginPage
+export default LoginPage;
