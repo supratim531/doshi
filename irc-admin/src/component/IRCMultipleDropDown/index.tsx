@@ -1,13 +1,13 @@
 import { Autocomplete, Grid, TextField } from "@mui/material";
 
 const IRCMultipleDropDown = (props: any) => {
-    
-    const getOptions=(options:any[],values:any[])=>{
-        const res=options.filter((e1:any)=>{
-            return values?.find((e2:any)=>{
-                return e1.id!==e2.id;
-            })
+    const getOptions = (options: any[], values: any[]) => {
+        const res = options.filter((e1: any) => {
+            return values?.find((e2: any) => {
+                return e1.id === e2.id;
+            }) === undefined
         })
+
         return res;
     }
 
@@ -21,7 +21,7 @@ const IRCMultipleDropDown = (props: any) => {
             <Autocomplete
                 multiple
                 size="medium"
-                options={props?.value?props.options:getOptions(props?.options,props?.value)}
+                options={props?.value ? getOptions(props?.options, props?.value) : props.options}
                 getOptionLabel={(option: any) => option.name}
                 filterSelectedOptions
                 onChange={(event, newValue) => props.onChange(newValue)}
@@ -29,11 +29,11 @@ const IRCMultipleDropDown = (props: any) => {
                 value={props.value || []}
                 renderInput={(params) => (
                     <TextField
-                      {...params}
-                      size="medium"
-                      label={props.label}
-                      placeholder={props.placeholder}
-                      variant="outlined"
+                        {...params}
+                        size="medium"
+                        label={props.label}
+                        placeholder={props.placeholder}
+                        variant="outlined"
                     />
                 )}
                 freeSolo
@@ -42,4 +42,4 @@ const IRCMultipleDropDown = (props: any) => {
     );
 };
 
-export default IRCMultipleDropDown
+export default IRCMultipleDropDown;

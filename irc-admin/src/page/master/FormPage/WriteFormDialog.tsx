@@ -204,7 +204,7 @@ const WriteFormDialog = ({ dialogState, setDialogState, form, setForm, onSuccess
             >
                 <EditText
                     label="Name"
-                    placeholder="e.g. Company Act, 2013"
+                    placeholder="e.g. ITR V"
                     value={name}
                     setStateValue={setName}
                     md={6}
@@ -212,7 +212,7 @@ const WriteFormDialog = ({ dialogState, setDialogState, form, setForm, onSuccess
                 />
                 <EditTextDropdown
                     label="Form Type"
-                    placeholder="e.g. Income Tax"
+                    placeholder="e.g. Return"
                     value={formType}
                     onChange={(sformType: FormType | null) => setFormType(sformType)}
                     options={formTypes}
@@ -230,7 +230,7 @@ const WriteFormDialog = ({ dialogState, setDialogState, form, setForm, onSuccess
                 />
                 <EditTextDropdown
                     label="Act"
-                    placeholder="e.g. Income Tax"
+                    placeholder="e.g. Income Tax Act"
                     value={act}
                     onChange={onActSelected}
                     options={acts}
@@ -238,7 +238,7 @@ const WriteFormDialog = ({ dialogState, setDialogState, form, setForm, onSuccess
                     required />
                 <IRCMultipleDropDown
                     label="Section"
-                    placeholder="e.g. Income Tax"
+                    placeholder="e.g. Return Filing"
                     value={section}
                     onChange={onSectionSelected}
                     options={sections}

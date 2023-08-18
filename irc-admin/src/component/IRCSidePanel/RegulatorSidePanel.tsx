@@ -73,18 +73,18 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
         if (eventDate.length == 10) {
             const d = new Date(eventDate);
             var newDate = addDate(d, record?.frequency!!);
-            setActualDueDate(addZero(newDate.getDate()) + "-" + addZero(newDate.getMonth() + 1) + "-" + newDate.getFullYear().toString())
+            setActualDueDate(newDate.getFullYear() + "-" + addZero(newDate.getMonth() + 1) + "-" + addZero(newDate.getDate()))
             console.log(record?.frequency)
         }
     }, [eventDate]);
 
     const formatDate: any = (date: any) => {
-        if (date) {
+        if (date?.includes('-')) {
             let splittedDate = date.split('-');
             return `${splittedDate[2]}-${splittedDate[1]}-${splittedDate[0]}`;
         }
 
-        return "";
+        return "Enter Event Date First";
     }
 
     return (

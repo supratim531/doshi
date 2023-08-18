@@ -1,6 +1,4 @@
 import React from 'react';
-import { axiosClient } from '../../../network/axiosClient';
-
 import { Grid } from "@mui/material";
 
 import { EditText, EditTextDropdown } from '../../../component/EditText';
@@ -8,9 +6,7 @@ import WriteDialog from '../../../component/WriteDialog';
 import IRCSnackbar from '../../../component/IRCSnackbar';
 
 import { addFrequency, updateFrequency } from '../../../network/frequency';
-
 import { Frequency, FrequencyBody, WriteFrequencyResponse } from '../../../model/frequency';
-
 
 type Props = {
     dialogState?: boolean;
@@ -20,8 +16,7 @@ type Props = {
     onSuccessButtonClick: any;
 };
 
-
-interface FrequencyType{
+interface FrequencyType {
     id: string;
     name: string;
 }
@@ -37,24 +32,22 @@ const frequencyTypes = [
     }
 ];
 
-const WriteFrequencyDialog = ({dialogState, setDialogState, frequency, setFrequency, onSuccessButtonClick} : Props) => {
-
-	const [name, setName] = React.useState<string>("");
+const WriteFrequencyDialog = ({ dialogState, setDialogState, frequency, setFrequency, onSuccessButtonClick }: Props) => {
+    const [name, setName] = React.useState<string>("");
     const [days, setDays] = React.useState<number | null>(null);
     const [months, setMonths] = React.useState<number | null>(null);
-    const [years, setYears] = React.useState<number | null>(null);
+    const [years, setYears] = React.useState<string | null | undefined>("");
     const [hours, setHours] = React.useState<number | null>(null);
     const [minutes, setMinutes] = React.useState<number | null>(null);
     const [remarks, setRemarks] = React.useState<string | null>(null);
 
     const [frequencyType, setFrequencyType] = React.useState<FrequencyType | null>(null);
-
     const [response, setResponse] = React.useState<WriteFrequencyResponse | null>(null);
     const [snackbar, setSnackbar] = React.useState(false);
 
     React.useEffect(() => {
 
-        if(frequency !== null){
+        if (frequency !== null) {
             setName(frequency.name);
             var ft = frequencyTypes.find(obj => {
                 return obj.id === frequency.frequency_type
@@ -62,7 +55,7 @@ const WriteFrequencyDialog = ({dialogState, setDialogState, frequency, setFreque
             setFrequencyType(ft as FrequencyType | null);
             setDays(frequency.days);
             setMonths(frequency.months);
-            setYears(frequency.years);
+            setYears(frequency.years?.toString());
             setHours(frequency.hours);
             setMinutes(frequency.minutes);
             setRemarks(frequency.remarks);
@@ -70,24 +63,20 @@ const WriteFrequencyDialog = ({dialogState, setDialogState, frequency, setFreque
 
     }, []);
 
-
-
     React.useEffect(() => {
-        if(response !== null){
+        if (response !== null) {
             setSnackbar(true);
-            if(response.status === 201 || response.status === 202){
+            if (response.status === 201 || response.status === 202) {
                 onSuccessButtonClick();
-                if(frequency === null){
+                if (frequency === null) {
                     clear();
                 }
-                
             }
         }
     }, [response]);
 
-
     function successBtnClick() {
-        if(frequency != null){
+        if (frequency != null) {
             const frequencyReq = {
                 id: frequency.id,
                 name: name,
@@ -101,7 +90,7 @@ const WriteFrequencyDialog = ({dialogState, setDialogState, frequency, setFreque
             } as FrequencyBody;
             updateFrequency(frequencyReq, setResponse);
         }
-        else{
+        else {
             const frequencyReq = {
                 name: name,
                 frequency_type: frequencyType?.id,
@@ -116,17 +105,17 @@ const WriteFrequencyDialog = ({dialogState, setDialogState, frequency, setFreque
         }
     }
 
-    function onFrequencyTypeSelected(frequencyType: FrequencyType){
+    function onFrequencyTypeSelected(frequencyType: FrequencyType) {
         setFrequencyType(frequencyType);
     }
 
-    function clear(){
+    function clear() {
         setFrequency(null);
         setName("");
         setFrequencyType(null);
         setDays(null);
         setMonths(null);
-        setYears(null);
+        setYears("");
         setHours(null);
         setMinutes(null);
         setRemarks(null);
@@ -134,22 +123,21 @@ const WriteFrequencyDialog = ({dialogState, setDialogState, frequency, setFreque
 
     const cancel = () => {
         clear();
-
         setResponse(null);
         setSnackbar(false);
     }
 
-	return(
-		<WriteDialog
-            title={frequency?"Update Frequency":"Add Frequency"}
+    return (
+        <WriteDialog
+            title={frequency ? "Update Frequency" : "Add Frequency"}
             dialogState={dialogState}
             setDialogState={setDialogState}
-            successText={frequency?"Update":"Add"}
+            successText={frequency ? "Update" : "Add"}
             onSuccess={successBtnClick}
             onCancel={cancel}
         >
 
-        	<Grid
+            <Grid
                 container
                 pt={1}
                 spacing={2}
@@ -222,19 +210,19 @@ const WriteFrequencyDialog = ({dialogState, setDialogState, frequency, setFreque
                     multiline
                     minRows={5}
                 />
-                    
+
             </Grid>
 
-            {response!==null?(
-                    <IRCSnackbar
-                        open={snackbar}
-                        setOpen={setSnackbar}
-                        message={response?.message}
-                        status={response?.status} />
-                ):null}
+            {response !== null ? (
+                <IRCSnackbar
+                    open={snackbar}
+                    setOpen={setSnackbar}
+                    message={response?.message}
+                    status={response?.status} />
+            ) : null}
 
         </WriteDialog>
-	);
+    );
 }
 
 export default WriteFrequencyDialog;

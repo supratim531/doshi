@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, CardContent, CardHeader, Chip } from "@mui/material";
+import { Box, CardContent, CardHeader } from "@mui/material";
 
 import MasterHeader from '../../../component/MasterHeader';
 import TableComponent from "../../../component/TableComponent";
@@ -8,30 +8,52 @@ import IRCPageLoader from '../../../component/IRCPageLoader';
 import IRCDeleteDialog from "../../../component/IRCDeleteDialog";
 
 import WriteRecordDialog from './WriteRecordDialog';
-
 import { Record } from '../../../model/record';
 import { axiosClient } from '../../../network/axiosClient';
 import RegulatorSidePanel from '../../../component/IRCSidePanel/RegulatorSidePanel';
+import IRCColoredChip from '../../../component/IRCColoredChip';
 
 const columns = [
+    // {
+    //     accessorKey: "form.act.regulator.name",
+    //     header: "Regulator",
+    // },
+    // {
+    //     accessorKey: "form.name",
+    //     header: "Form",
+    // },
     {
-        accessorKey: "form.act.regulator.name",
-        header: "Regulator",
-    },
-    {
-        accessorKey: "form.name",
-        header: "Form",
+        id: 'regulator',
+        columns: [
+            {
+                id: 'regulatorName',
+                header: 'Regulator',
+                Cell: ({ row }: any) => (
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "1rem",
+                        }}
+                    >
+                        <IRCColoredChip backgroundColor={row.original.form?.act?.regulator?.color_code} label={row.original.form?.act?.regulator?.name} />
+                    </Box>
+                ),
+            },
+        ],
     },
     {
         accessorKey: "form_type",
+        header: "Compliance Type",
+    },
+    {
+        accessorKey: "form.form_type",
         header: "Form Type",
     },
-
     {
         accessorKey: "frequency.name",
         header: "Frequency",
     },
-
     {
         accessorKey: "date_from",
         header: "From",
@@ -39,6 +61,10 @@ const columns = [
     {
         accessorKey: "date_to",
         header: "To"
+    },
+    {
+        accessorKey: "actual_date",
+        header: "Due Date"
     }
 ];
 
@@ -97,6 +123,8 @@ const RecordPage = () => {
     const onSuccessButtonClick = () => {
         getAllRecordAPI();
     }
+
+    console.log('records:', records);
 
     return (
         <>
