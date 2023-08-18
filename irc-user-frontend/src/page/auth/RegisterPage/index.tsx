@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Avatar, Alert, Button, Box, Paper, TextField, Typography, Grid} from '@mui/material';
+import { Avatar, Alert, Button, Box, Paper, TextField, Typography, Grid } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import Copyright from '../../../component/Copyright';
@@ -36,13 +36,13 @@ const RegisterPage = () => {
     const registerSlice = useAppSelector((state) => state.register);
 
     React.useEffect(() => {
-        if(registerSlice.response.data !== undefined){
+        if (registerSlice.response.data !== undefined) {
             setRegisterResponseData(registerSlice.response.data);
             setSuccessResponse(registerSlice.response.message);
             setErrorResponse(null);
         }
 
-        if(registerSlice.error.message !== undefined){
+        if (registerSlice.error.message !== undefined) {
             setErrorResponse(registerSlice.error.message);
         }
     }, [registerSlice]);
@@ -55,7 +55,7 @@ const RegisterPage = () => {
             password: password,
             password_confirmation: confirmPassword,
         } as RegisterBody;
-        
+
         setErrorResponse(null);
         setSuccessResponse(null);
 
@@ -63,18 +63,26 @@ const RegisterPage = () => {
     };
 
     React.useEffect(() => {
-        if(loginResponseData !== null && (loginResponseData.user_type === "user" || loginResponseData.user_type === "admin")){
+        if (loginResponseData !== null && (loginResponseData.user_type === "user" || loginResponseData.user_type === "admin")) {
             localStorage.setItem("token", loginResponseData.token);
             localStorage.setItem("user_type", loginResponseData.user_type);
 
             setTimeout(() => {
-                navigate("/dashboard");
+
+                window.location.reload();
+
             }, 1000);
         }
     }, [loginResponseData]);
 
+    const onEnterKeyPress = (e: any) => {
+        if (e.key === "Enter") {
+            onRegisterBtnClick();
+        }
+    }
+
     return (
-    
+
         <Grid container component="main" sx={{ height: '100vh' }}>
             <Grid
                 item
@@ -100,15 +108,15 @@ const RegisterPage = () => {
                         alignItems: 'center',
                     }}
                 >
-            
+
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <LockOutlinedIcon />
                     </Avatar>
-                    
+
                     <Typography component="h1" variant="h5">
                         Register
                     </Typography>
-                    
+
                     <Box sx={{ mt: 1, width: '100%', }}>
                         <TextField
                             label="Name"
@@ -118,6 +126,7 @@ const RegisterPage = () => {
                             margin="normal"
                             required
                             fullWidth
+                            onKeyDown={e => onEnterKeyPress(e)}
                             autoFocus
                         />
 
@@ -129,8 +138,9 @@ const RegisterPage = () => {
                             margin="normal"
                             required
                             fullWidth
+                            onKeyDown={e => onEnterKeyPress(e)}
                         />
-                        
+
                         <TextField
                             label="Password"
                             type="password"
@@ -140,6 +150,7 @@ const RegisterPage = () => {
                             margin="normal"
                             required
                             fullWidth
+                            onKeyDown={e => onEnterKeyPress(e)}
                         />
 
                         <TextField
@@ -148,26 +159,28 @@ const RegisterPage = () => {
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             margin="normal"
-                            sx={{mb: 2}}
+                            sx={{ mb: 2 }}
                             required
                             fullWidth
+                            onKeyDown={e => onEnterKeyPress(e)}
                         />
 
-                        {errorResponse !== null && errorResponse !== ''?<Alert sx={{width: '100%',}} severity="error">{errorResponse}</Alert>: null}
-                        {successResponse !== null && successResponse !== ''?<Alert sx={{width: '100%',}} severity="success">{successResponse}</Alert>: null}
+                        {errorResponse !== null && errorResponse !== '' ? <Alert sx={{ width: '100%', }} severity="error">{errorResponse}</Alert> : null}
+                        {successResponse !== null && successResponse !== '' ? <Alert sx={{ width: '100%', }} severity="success">{successResponse}</Alert> : null}
 
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             onClick={onRegisterBtnClick}
-                            sx={{ mt: 2,mb: 2, height: 45, }}
+                            onKeyDown={e => onEnterKeyPress(e)}
+                            sx={{ mt: 2, mb: 2, height: 45, }}
                         >
                             <Typography>Register</Typography>
                         </Button>
-              
-                        <Grid container sx={{width: '100%'}}>
-                            
+
+                        <Grid container sx={{ width: '100%' }}>
+
                             <Grid md={12} item>
                                 <center>
                                     Already have an account?&nbsp;
@@ -184,4 +197,4 @@ const RegisterPage = () => {
     );
 }
 
-export default RegisterPage
+export default RegisterPage;

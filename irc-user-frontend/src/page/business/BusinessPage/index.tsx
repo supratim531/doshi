@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { CardContent, CardHeader,Box, Grid } from "@mui/material";
+import { CardContent, CardHeader, Box, Grid, Typography } from "@mui/material";
 
 import { useAppDispatch, useAppSelector } from "../../../reduxStore/hooks";
 
@@ -23,14 +23,14 @@ const BusinessPage = () => {
     const allBusinessSlice = useAppSelector((state) => state.allBusiness);
 
     React.useEffect(() => {
-        if(allBusinessSlice.businessList.data !== undefined){
+        if (allBusinessSlice.businessList.data !== undefined) {
             setBusinesses(allBusinessSlice.businessList.data)
-        }else{
+        } else {
             setBusinesses([]);
         }
     }, [allBusinessSlice]);
 
-  
+
     React.useEffect(() => {
         dispatch(allBusiness(true));
     }, []);
@@ -52,12 +52,17 @@ const BusinessPage = () => {
                                 />
                             }
                         />
-                        
-                        <CardContent sx={{minHeight: '80vh'}}>
-                            
+
+                        <CardContent sx={{ minHeight: '80vh' }}>
+
                             <Grid container spacing={2}>
                                 {
-                                    businesses?.map((business: Business) => (<IRCBusinessCard key={business.pan} business={business} />))
+                                    businesses.length > 0 ?
+                                        businesses?.map((business: Business) => (<IRCBusinessCard key={business.pan} business={business} />)) :
+                                        <Grid sx={{ display: "flex", flexDirection: "column", gap: "20px", alignItems: "center", width: "100%" }}>
+                                            <img style={{ width: "200px" }} src="/assets/svgs/nodata.svg" alt="" />
+                                            <Typography>There are no businesses, kindly add your business</Typography>
+                                        </Grid>
                                 }
                             </Grid>
 

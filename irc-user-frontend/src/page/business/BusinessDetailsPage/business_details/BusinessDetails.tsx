@@ -3,15 +3,13 @@ import * as React from 'react';
 import { Button, Box, Grid, Typography, TextField } from '@mui/material';
 
 import { axiosClient } from '../../../../network/axiosClient';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from "../../../../reduxStore/hooks";
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from "../../../../reduxStore/hooks";
 
 import { BusinessDataField, DFWriteResponse } from '../../../../model/dataField';
-
 import IRCSnackbar from '../../../../component/IRCSnackbar';
 
 export default function BusinessDetails({ business }: any) {
-
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -74,8 +72,6 @@ export default function BusinessDetails({ business }: any) {
         setBusinessDataFields(newState);
     }
 
-
-
     const saveAccounts = () => {
         var dataFieldString = ""
         businessDataFields && businessDataFields.map((dataField: BusinessDataField, index: number) => {
@@ -94,14 +90,11 @@ export default function BusinessDetails({ business }: any) {
         updateBusinessDataField(writeBusinessDFBody);
     }
 
-    console.log("APNA COLLEGE:", businessDataFields);
-
     return (
         <Grid
             py={1}
             container
             spacing={2}>
-
             <Grid
                 md={12}
                 sm={12}
@@ -154,7 +147,6 @@ export default function BusinessDetails({ business }: any) {
                     message={response?.message}
                     status={response?.status} />
             ) : null}
-
         </Grid>
     );
 }

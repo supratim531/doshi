@@ -11,6 +11,7 @@ import { Box, Button, Checkbox, FormControlLabel, Grid, Typography } from '@mui/
 
 import { axiosClient } from '../../../../network/axiosClient';
 import { BusinessRegulator } from '../../../../model/regulator';
+import { AddBusinessUserBodyResponse } from '../../../../model/business';
 
 import IRCSnackbar from '../../../../component/IRCSnackbar';
 
@@ -54,6 +55,8 @@ export default function RegulatorDetails({ business }: any) {
 
     const [regulators, setRegulators] = React.useState<BusinessRegulator[]>([]);
 
+    const [response, setResponse] = React.useState<AddBusinessUserBodyResponse | null>(null);
+
     const [snackbar, setSnackbar] = React.useState(false);
 
     React.useEffect(() => {
@@ -63,6 +66,12 @@ export default function RegulatorDetails({ business }: any) {
 
         getRegulatorsFromAPI(requestBody);
     }, [])
+
+    React.useEffect(() => {
+        if (response !== null) {
+            setSnackbar(true);
+        }
+    }, [response]);
 
     const [expanded, setExpanded] = React.useState<string | false>(false);
 
@@ -77,6 +86,13 @@ export default function RegulatorDetails({ business }: any) {
             .catch((error: any) => console.log(error.response.data));
     }
 
+    const updateBusinessRegulators = async (payload: any) => {
+        return await axiosClient
+            .post(`regulator/business/update`, payload)
+            .then((response: any) => setResponse(response?.data))
+            .catch((error: any) => console.log(error.response.data));
+    }
+
     const regulatorCheckChange = (e: any, regulator: BusinessRegulator) => {
         const index = regulators.findIndex(object => {
             return object.id === regulator.id;
@@ -87,16 +103,21 @@ export default function RegulatorDetails({ business }: any) {
     }
 
     const saveRegulator = () => {
-        var regulatorString = ""
+        var regulatorString = "";
         regulators.map((regulator: BusinessRegulator, index: number) => {
 
-            regulatorString += regulator.id + ":" + regulator.checked;
-            if (index < regulators.length - 1) {
-                regulatorString += ","
-            }
+            if (regulator.checked)
+                regulatorString = regulatorString + `${regulator.id},`;
         });
 
-        console.log(regulatorString);
+        regulatorString = regulatorString.substring(0, regulatorString.length - 1);
+
+        const requestBody = {
+            id: business?.id,
+            regulators: regulatorString,
+        } as any;
+
+        updateBusinessRegulators(requestBody);
         setSnackbar(true);
     }
 
@@ -144,12 +165,12 @@ export default function RegulatorDetails({ business }: any) {
                 </Accordion>
             </div>
 
-            {snackbar !== false ? (
+            {response !== null ? (
                 <IRCSnackbar
                     open={snackbar}
                     setOpen={setSnackbar}
-                    message={"Something went wrong!"}
-                    status={400} />
+                    message={response?.message}
+                    status={response?.status} />
             ) : null}
         </Box>
     );
