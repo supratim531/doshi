@@ -24,5 +24,8 @@ axiosClient.interceptors.response.use(res => {
     if (err.response.data['message'] === 'Unauthenticated.' && err.response.status === 401) {
         logout()
     }
+    if (err.response.status === 429) {
+        alert(err.response.data['message']);
+    }
     throw err;
 });

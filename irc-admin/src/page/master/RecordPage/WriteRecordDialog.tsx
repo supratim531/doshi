@@ -154,6 +154,7 @@ const WriteRecordDialog = ({
                 setState(p=>[...p,v])
             })
             
+            console.log(record)
             record.tax_payers?.map((v:State,i:number)=>{
                 setTaxPayer(p=>[...p,v])
             })
@@ -188,6 +189,21 @@ const WriteRecordDialog = ({
             setFrequency(record.frequency);
 
             setThreshold(record.threshold);
+
+            const simpleActBody = {
+                regulator_id: record.form.act.regulator.id,
+            } as SimpleRegulatorActBody;
+            allActSimple(simpleActBody, setActs);
+
+            const simpleSectionBody = {
+                act_id: record.form.act.id,
+            } as SimpleActSectionBody;
+            allSectionSimple(simpleSectionBody, setSections);
+
+            const simpleFormBody = {
+                sections: record.form.id,
+            } as any;
+            allFormSimple(simpleFormBody, setForms);
         }
     }, []);
     

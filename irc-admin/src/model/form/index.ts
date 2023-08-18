@@ -22,7 +22,7 @@ export interface SimpleFormBody {
 export interface FormBody {
     id?: number;
     name: string;
-    sections: number;
+    sections: string;
     remarks: string;
 }
 

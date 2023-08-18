@@ -16,6 +16,7 @@ import { allRegulatorSimple } from '../../../network/regulator';
 import { allActSimple } from '../../../network/act';
 import { allSectionSimple } from '../../../network/section';
 import { addForm, updateForm } from '../../../network/form';
+import IRCMultipleDropDown from '../../../component/IRCMultipleDropDown';
 
 
 type Props = {
@@ -63,7 +64,7 @@ const WriteFormDialog = ({ dialogState, setDialogState, form, setForm, onSuccess
     const [formType, setFormType] = React.useState<FormType | null>(null);
     const [regulator, setRegulator] = React.useState<SimpleRegulator | null>(null);
     const [act, setAct] = React.useState<SimpleAct | null>(null);
-    const [section, setSection] = React.useState<SimpleSection | null>(null);
+    const [section, setSection] = React.useState<SimpleSection[]>([]);
     const [remarks, setRemarks] = React.useState<string | null>();
 
     const [response, setResponse] = React.useState<WriteFormResponse | null>(null);
@@ -71,16 +72,28 @@ const WriteFormDialog = ({ dialogState, setDialogState, form, setForm, onSuccess
 
     React.useEffect(() => {
         if (form !== null) {
-            console.log(form)
+
             setName(form.name);
             const sr = { id: form?.act?.regulator?.id, name: form?.act?.regulator?.name } as SimpleRegulator;
-            const ft = { id: form.id, name: form.form_type } as FormType;
+            //const ft = { id: form.id, name: form.form_type } as FormType;
+            const ft=formTypes.find(e=>e.id===form.form_type) as FormType;
             setFormType(ft);
             setRegulator(sr);
             const sa = { id: form?.act?.id, name: form?.act?.name } as SimpleAct;
             setAct(sa);
-            const ss = { id: form?.sections[0]?.id, name: form?.sections[0]?.name } as SimpleSection;
-            setSection(ss);
+            
+            const simpleActBody = {
+                regulator_id: form.act.regulator.id
+            } as SimpleRegulatorActBody;
+            allActSimple(simpleActBody, setActs);
+
+            const simpleSectionBody = {
+                act_id: form.act.id
+            } as SimpleActSectionBody;
+            allSectionSimple(simpleSectionBody, setSections);
+
+            
+            setSection(form?.sections);
             setRemarks(form.remarks);
         }
     }, [form]);
@@ -90,7 +103,7 @@ const WriteFormDialog = ({ dialogState, setDialogState, form, setForm, onSuccess
         setActs([]);
         setAct(null);
         setSections([]);
-        setSection(null);
+        setSection([]);
         if (simpleRegulator !== null) {
             const simpleActBody = {
                 regulator_id: simpleRegulator.id
@@ -103,7 +116,7 @@ const WriteFormDialog = ({ dialogState, setDialogState, form, setForm, onSuccess
     const onActSelected = (simpleAct: SimpleAct | null) => {
         setAct(simpleAct);
         setSections([]);
-        setSection(null);
+        setSection([]);
         if (simpleAct !== null) {
             const simpleSectionBody = {
                 act_id: simpleAct.id
@@ -112,7 +125,7 @@ const WriteFormDialog = ({ dialogState, setDialogState, form, setForm, onSuccess
         }
     }
 
-    const onSectionSelected = (simpleSection: SimpleSection | null) => {
+    const onSectionSelected = (simpleSection: SimpleSection[]) => {
         setSection(simpleSection);
     }
 
@@ -133,20 +146,21 @@ const WriteFormDialog = ({ dialogState, setDialogState, form, setForm, onSuccess
     function successBtnClick() {
 
         if (form !== null) {
+            const selectedSection = section.map((item) => item.id).toString();
             const formRequest = {
                 id: form.id,
                 name: name,
-                form_type: formType?.id,
-                sections: section?.id,
+                form_type: (formType?.id)?.toString(),
+                sections: selectedSection,
                 remarks: remarks
             } as FormBody;
-
             updateForm(formRequest, setResponse);
         } else {
+            const selectedSection = section.map((item) => item.id).toString();
             const formRequest = {
                 name: name,
-                form_type: formType?.id,
-                sections: section?.id,
+                form_type: (formType?.id)?.toString(),
+                sections: selectedSection,
                 remarks: remarks
             } as FormBody;
 
@@ -160,7 +174,7 @@ const WriteFormDialog = ({ dialogState, setDialogState, form, setForm, onSuccess
         setFormType(null);
         setRegulator(null);
         setAct(null);
-        setSection(null);
+        setSection([]);
         setRemarks(null);
         setActs([]);
         setSections([]);
@@ -193,7 +207,7 @@ const WriteFormDialog = ({ dialogState, setDialogState, form, setForm, onSuccess
                     placeholder="e.g. Company Act, 2013"
                     value={name}
                     setStateValue={setName}
-                    md={12}
+                    md={6}
                     required
                 />
                 <EditTextDropdown
@@ -222,13 +236,13 @@ const WriteFormDialog = ({ dialogState, setDialogState, form, setForm, onSuccess
                     options={acts}
                     md={6}
                     required />
-                <EditTextDropdown
+                <IRCMultipleDropDown
                     label="Section"
                     placeholder="e.g. Income Tax"
                     value={section}
                     onChange={onSectionSelected}
                     options={sections}
-                    md={6}
+                    md={12}
                     required />
                 <EditText
                     label="Remarks"

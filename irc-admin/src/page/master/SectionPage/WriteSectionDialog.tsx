@@ -60,6 +60,12 @@ const WriteSectionDialog = ({dialogState, setDialogState, section, setSection, o
             setClauseNumber(section.clause_number);
             setSubClauseNumber(section.sub_clause_number);
             setRemarks(section.remarks);
+
+            const simpleActBody = {
+                regulator_id: section.act.regulator.id
+            } as SimpleRegulatorActBody;
+
+            allActSimple(simpleActBody, setActs);
         }
     }, []);
 
