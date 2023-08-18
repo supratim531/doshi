@@ -42,7 +42,7 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
                 setActualDueDate(record?.actual_date)
             }
         }
-    }, [])
+    }, [record]);
 
     const addDate = (date: Date, frequency: Frequency) => {
         var years = frequency.years !== null ? frequency.years : 0;
@@ -76,7 +76,16 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
             setActualDueDate(addZero(newDate.getDate()) + "-" + addZero(newDate.getMonth() + 1) + "-" + newDate.getFullYear().toString())
             console.log(record?.frequency)
         }
-    }, [eventDate])
+    }, [eventDate]);
+
+    const formatDate: any = (date: any) => {
+        if (date) {
+            let splittedDate = date.split('-');
+            return `${splittedDate[2]}-${splittedDate[1]}-${splittedDate[0]}`;
+        }
+
+        return "";
+    }
 
     return (
         <SlidingPanel
@@ -94,49 +103,49 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
                 <Box p={2} style={{ flexGrow: 1, overflow: 'hidden', overflowY: 'scroll' }}>
                     <Grid container spacing={2}>
                         <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Record Type <InfoButton title={"This is Text"} /></Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Record Type</Typography>
                             <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.form_type}</Typography>
                         </Grid>
                         <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Regulator <InfoButton title={"This is Text"} /></Typography>
-                            <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.form?.act?.regulator.name}</Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Regulator</Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.form?.act?.regulator.name} <InfoButton title={record?.form?.act?.regulator?.remarks} /></Typography>
                         </Grid>
                         <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Financial Year <InfoButton title={"This is Text"} /></Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Financial Year <InfoButton title={"Applicable Financial Year"} /></Typography>
                             <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.financial_year.financial_year}</Typography>
                         </Grid>
                         <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Assesment Year <InfoButton title={"This is Text"} /></Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Assesment Year <InfoButton title={"Applicable Assesment Year"} /></Typography>
                             <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.financial_year.assesment_year}</Typography>
                         </Grid>
                         {record?.form_type !== 'even' ? (
                             <Grid item md={6}>
-                                <Typography variant="body1" fontSize={16} fontWeight={700}>From Date <InfoButton title={"This is Text"} /></Typography>
-                                <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.date_from}</Typography>
+                                <Typography variant="body1" fontSize={16} fontWeight={700}>From Date <InfoButton title={"Starting of the Applicable Period for the Compliance"} /></Typography>
+                                <Typography variant="body1" fontSize={16} fontWeight={500}>{formatDate(record?.date_from)}</Typography>
                             </Grid>
                         ) : null
                         }
 
                         {record?.form_type !== 'even' ? (
                             <Grid item md={6}>
-                                <Typography variant="body1" fontSize={16} fontWeight={700}>To Date <InfoButton title={"This is Text"} /></Typography>
-                                <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.date_to}</Typography>
+                                <Typography variant="body1" fontSize={16} fontWeight={700}>To Date <InfoButton title={"Ending of the Applicable Period for the Compliance"} /></Typography>
+                                <Typography variant="body1" fontSize={16} fontWeight={500}>{formatDate(record?.date_to)}</Typography>
                             </Grid>
                         ) : null
                         }
 
                         <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Return Form Type</Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Return Form Type <InfoButton title={"Includes Returns, Forms, Certifications, Annexures, Prescribed Formats and other applicable formats. Includes Compliances which needs to be done under various Acts"} /></Typography>
                             <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.form.form_type}</Typography>
                         </Grid>
                         <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Returns / Forms / Certifications <InfoButton title={"This is Text"} /></Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Returns / Forms / Certifications <InfoButton title={"Includes Returns, Forms, Certifications, Annexures, Prescribed Formats and other applicable formats"} /></Typography>
                             <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.form.name}</Typography>
                         </Grid>
 
                         <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Frequency <InfoButton title={"This is Text"} /></Typography>
-                            <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.frequency.name}</Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Frequency <InfoButton title={"The interval or applicable tenure for compliance. See the Remarks for Specific Frequency selected"} /></Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.frequency.name} <InfoButton title={record?.frequency.remarks} /></Typography>
                         </Grid>
 
                         {record?.form_type === 'even' ? (
@@ -153,17 +162,17 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
                         }
 
                         <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Actual Due Date <InfoButton title={"This is Text"} /></Typography>
-                            <Typography variant="body1" fontSize={16} fontWeight={500}>{actualDueDate}</Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Actual Due Date <InfoButton title={"The date by which the particular Form or Compliances needs to be performed as prescribed in the respective act. It is also the Key date for Trigger of Alerts & Notifications"} /></Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={500}>{formatDate(actualDueDate)}</Typography>
                         </Grid>
 
                         <Grid item md={12}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Tax Payers <InfoButton title={"This is Text"} /></Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Tax Payers <InfoButton title={"Includes Type of Entity or Legal Structure or Applicable type of Taxpayer, this Needs to be selected in Profile > Settings. All Notifications shall be based on the Selected &quot;Tax Payer&quot; Type across the application. E.g., If your entity is OPC (One Person Company), then you need to select the same Tax Payer Type in the Profile > Settings or, if you are a Resident - Individual, then you need to select the same in the Profile > Settings All email alerts & Push Notifications shall be triggered on the basis of this."} /></Typography>
                             <Typography className="tax-payer-scrollbar" variant="body1" fontSize={16} fontWeight={500} sx={{ wordBreak: "break-all", height: "96px", overflowY: "scroll" }}>{getTaxPayers()}</Typography>
                         </Grid>
 
                         <Grid item md={12}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Description <InfoButton title={"This is Text"} /></Typography>
+                            <Typography variant="body1" fontSize={16} fontWeight={700}>Description <InfoButton title={"You may check the Description of each record for better understanding of the applicability of the compliance"} /></Typography>
                             {Parser().parse(record?.description)}
                         </Grid>
                     </Grid>

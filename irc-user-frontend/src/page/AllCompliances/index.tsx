@@ -1,14 +1,13 @@
 import React from "react";
 
-import { Box, CardContent, CardHeader, Chip } from "@mui/material";
-
+import { Box, CardContent, CardHeader } from "@mui/material";
 import MasterHeader from '../../component/MasterHeader';
 import IRCPageLoader from '../../component/IRCPageLoader';
 
 import { useAppDispatch, useAppSelector } from "../../reduxStore/hooks";
 import { allRecord } from "../../network/store/record/allRecord";
-
 import { Record } from '../../model/record';
+
 import ClickableTable from "./ClickableTable";
 import RegulatorSidePanel from "./RegulatorSidePanel";
 import IRCColoredChip from "../../component/IRCColoredChip";

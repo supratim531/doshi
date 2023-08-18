@@ -7,21 +7,12 @@ import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
 import MuiAccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 
-import { Box, Button, Checkbox, FormControlLabel, FormGroup, Grid, Typography } from '@mui/material';
+import { Box, Button, Checkbox, FormControlLabel, Grid, Typography } from '@mui/material';
 
 import { axiosClient } from '../../../../network/axiosClient';
-import { BusinessRegulator, SimpleRegulator } from '../../../../model/regulator';
+import { BusinessRegulator } from '../../../../model/regulator';
 
 import IRCSnackbar from '../../../../component/IRCSnackbar';
-
-// const useStyles = makeStyles({
-//     typography: {
-//         fontFamily: [
-//             'Poppins',
-//             'sans-serif'
-//         ].join(','),
-//     },
-// });
 
 const Accordion = styled((props: AccordionProps) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -59,33 +50,6 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
     borderTop: '1px solid rgba(0, 0, 0, .125)',
 }));
 
-const rg = [
-    {
-        id: 1,
-        name: "Income Tax",
-        checked: true,
-        default: true
-    },
-    {
-        id: 2,
-        name: "MCA",
-        checked: false,
-        default: false
-    },
-    {
-        id: 3,
-        name: "RBI",
-        checked: false,
-        default: false
-    },
-    {
-        id: 4,
-        name: "GST",
-        checked: true,
-        default: true
-    }
-]
-
 export default function RegulatorDetails({ business }: any) {
 
     const [regulators, setRegulators] = React.useState<BusinessRegulator[]>([]);
@@ -93,15 +57,12 @@ export default function RegulatorDetails({ business }: any) {
     const [snackbar, setSnackbar] = React.useState(false);
 
     React.useEffect(() => {
-        getRegulatorsFromAPI()
+        const requestBody = {
+            id: business?.id,
+        } as any;
+
+        getRegulatorsFromAPI(requestBody);
     }, [])
-
-
-    // React.useEffect(() => {
-    //     if (allFinancialYearSlice.financialYearList.data !== undefined) {
-    //         setFinancialYears(allFinancialYearSlice.financialYearList.data);
-    //     }
-    // }, [allFinancialYearSlice]);
 
     const [expanded, setExpanded] = React.useState<string | false>(false);
 
@@ -109,10 +70,10 @@ export default function RegulatorDetails({ business }: any) {
         setExpanded(newExpanded ? panel : false);
     };
 
-    const getRegulatorsFromAPI = async () => {
+    const getRegulatorsFromAPI = async (payload: any) => {
         return await axiosClient
-            .post(`regulator/simple`, true)
-            .then((response: any) => setRegulators(rg))
+            .post(`regulator/business`, payload)
+            .then((response: any) => setRegulators(response?.data?.data))
             .catch((error: any) => console.log(error.response.data));
     }
 
