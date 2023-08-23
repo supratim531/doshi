@@ -3,6 +3,7 @@ import { axiosClient } from '../../axiosClient';
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
 import { SimpleTaxPayer, TaxPayerErrorResponse } from '../../../model/taxPayer';
+import { Console } from 'console';
 
 type InitialState = {
     loading: boolean;
@@ -20,9 +21,8 @@ export const simpleTaxPayer = createAsyncThunk<SimpleTaxPayer[], any>(
 
     "simpleTaxPayer/simpleTaxPayer",
     async (payload: any, { rejectWithValue }) => {
-    
         return await axiosClient
-          .post(`taxpayer/simple`, payload)
+          .post(`taxpayer/simple`, payload.params)
           .then((response: any) => response.data)
           .catch((error: any) => rejectWithValue(error.response.data.message));
     }

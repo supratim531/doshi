@@ -36,17 +36,19 @@ const AddBusinessDialog = ({ dialogState, setDialogState, onSuccessButtonClick }
     const simpleTaxPayerSlice = useAppSelector((state) => state.simpleTaxPayer);
 
     React.useEffect(() => {
-        if(pan.length === 10){
-           dispatch(simpleTaxPayer({ params: { pan: pan } } as any));
+        if(pan.length === 10 && cin.length===21){
+           dispatch(simpleTaxPayer({ params: { pan: pan,cin:cin } } as any));
         }
-    }, [pan])
+        else if(pan.length === 10 && pan[3]!=='C'){
+            dispatch(simpleTaxPayer({ params: { pan: pan} } as any));
+        }
+    }, [pan,cin])
 
     React.useEffect(() => {
         if(simpleTaxPayerSlice.taxPayerList !== undefined){
             setTaxPayers(simpleTaxPayerSlice.taxPayerList)
         }
     }, [simpleTaxPayerSlice]);
-
 
     
 
@@ -106,21 +108,21 @@ const AddBusinessDialog = ({ dialogState, setDialogState, onSuccessButtonClick }
             onCancel={clear}
         >
             <Grid container pt={1} spacing={2}>
-                
-                <EditText
-                    label="PAN (Permanent Account Number)"
-                    placeholder="e.g. XXXXXXXXXX"
-                    value={pan}
-                    setStateValue={setPan}
-                    md={12}
-                    required
-                />
 
                 <EditText
                     label="Name"
                     placeholder="e.g. Instade Business Services LLP"
                     value={name}
                     setStateValue={setName}
+                    md={12}
+                    required
+                />
+
+                <EditText
+                    label="PAN (Permanent Account Number)"
+                    placeholder="e.g. XXXXXXXXXX"
+                    value={pan}
+                    setStateValue={setPan}
                     md={12}
                     required
                 />
@@ -136,7 +138,7 @@ const AddBusinessDialog = ({ dialogState, setDialogState, onSuccessButtonClick }
                     />
                 ):null}
 
-                {pan.length === 10?(
+                {cin.length === 21 || (pan.length===10 && pan[3]!=='C')?(
 
                     <EditTextDropdown
                         label="Tax Payer"
