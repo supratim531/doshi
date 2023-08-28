@@ -14,6 +14,7 @@ import { DataField  } from "../../model/dataField";
 import WriteBusinessDataField from "./WriteBusinessDataFieldDialog";
 import { axiosClient } from "../../network/axiosClient";
 
+
 const columns = [
   {
       accessorKey: "name",
@@ -110,15 +111,15 @@ const BusinessDataField = () => {
       setDataField(dataField);
   };
 
-  // const onDelete = () => {
-  //     setDeleteDialog(false);
-  //     const deleteRequest = {
-  //         id: taxPayer?.id,
-  //     } as SimpleTaxPayerBody;
-  //     dispatch(deleteTaxPayer(deleteRequest));
-  //     dispatch(allTaxPayer(true));
-  //     setTaxPayer(null);
-  // }
+   /*const onDelete = () => {
+       setDeleteDialog(false);
+       const deleteRequest = {
+           id: taxPayer?.id,
+       } as SimpleTaxPayerBody;
+       dispatch(deleteTaxPayer(deleteRequest));
+       dispatch(allTaxPayer(true));
+       setTaxPayer(null);
+   }*/
 
   const onSuccessButtonClick = () => {
     getAllDataFieldAPI();
@@ -141,7 +142,7 @@ const BusinessDataField = () => {
                       <TableComponent
                           columns={columns}
                           tableData={dataFields}
-                          onEdit={onEditPress}
+                          onDelete={onDeteleClicked}
                       />
                   ) : (
                       <IRCPageLoader />
