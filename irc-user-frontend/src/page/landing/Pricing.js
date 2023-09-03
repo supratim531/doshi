@@ -7,13 +7,13 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 
 const data = [
-    {
-        title: 'Essential',
-        price: '1650',
-        discount: '10% Discount when Billed Annually INR 5 per eSign',
-        list: ['1 user', '10 documents signed per month', 'Upload and Sign', 'Document Store', 'Profile Management', 'Reminders and Notifications', 'Activity Logs', 'Google Drive/Dropbox Integration']
+    // {
+    //     title: 'Essential',
+    //     price: '1650',
+    //     discount: '10% Discount when Billed Annually INR 5 per eSign',
+    //     list: ['1 user', '10 documents signed per month', 'Upload and Sign', 'Document Store', 'Profile Management', 'Reminders and Notifications', 'Activity Logs', 'Google Drive/Dropbox Integration']
 
-    },
+    // },
     {
         title: 'Essential',
         price: '1650',
@@ -44,12 +44,11 @@ const Pricing = () => {
     };
 
     return (
-        <Box sx={{backgroundColor:'#e8f5fd',padding:'30px'}}  >
-            <Box sx={{margin:'40px'}}>
-                <Typography sx={{textAlign:'center',fontSize:'1.7rem'}} gutterBottom>Subscription Plans & Pricing</Typography>
-                <Typography sx={{textAlign:'center',fontSize:'1rem',color:'grey'}} gutterBottom>Simple & clear pricing. Start electronically signing your documents today.
-                </Typography>
-
+        <Box sx={{ backgroundColor: '#e8f5fd', padding: '30px' }}  >
+            <Box sx={{ margin: '40px' }}>
+                <Typography sx={{ textAlign: 'center', fontSize: '1.7rem' }} gutterBottom>Subscription Plans & Pricing</Typography>
+                <Typography sx={{ textAlign: 'center', fontSize: '1rem', color: 'grey' }} gutterBottom>We offer a flexible, pay-as-you-need model and are committed to building custom solutions if what you require isn't available</Typography>
+                {/* <Typography sx={{textAlign:'center',fontSize:'1rem',color:'grey'}} gutterBottom>Simple & clear pricing. Start electronically signing your documents today. */}
             </Box>
             <ToggleButtonGroup
                 value={alignment}
@@ -61,39 +60,39 @@ const Pricing = () => {
                 <ToggleButton sx={{
                     borderRadius: 5, "&.Mui-selected, &.Mui-selected:hover": {
                         color: "white",
-                        backgroundColor:'#0034ac'
+                        backgroundColor: '#0034ac'
                     },
-                    padding:'5px 20px',
-                    color:'black',
-                    border:'1px solid black'
+                    padding: '5px 20px',
+                    color: 'black',
+                    border: '1px solid black'
                 }} value="left" aria-label="left aligned">
-                    Users
+                    Startups & SMEs
                 </ToggleButton>
                 <ToggleButton sx={{
                     borderRadius: 5, "&.Mui-selected, &.Mui-selected:hover": {
                         color: "white",
-                        backgroundColor:'#0034ac'
+                        backgroundColor: '#0034ac'
                     },
-                    padding:'5px 20px',
-                    color:'black',
-                    border:'1px solid black'
+                    padding: '5px 20px',
+                    color: 'black',
+                    border: '1px solid black'
                 }} value="center" aria-label="centered">
-                    Envelopes
+                    Corporates
                 </ToggleButton>
                 <ToggleButton sx={{
                     borderRadius: 5, "&.Mui-selected, &.Mui-selected:hover": {
                         color: "white",
-                        backgroundColor:'#0034ac'
+                        backgroundColor: '#0034ac'
                     },
-                    padding:'5px 20px',
-                    color:'black',
-                    border:'1px solid black'
+                    padding: '5px 20px',
+                    color: 'black',
+                    border: '1px solid black'
                 }} value="right" aria-label="right aligned">
-                    Integration
+                    Professionals
                 </ToggleButton>
             </ToggleButtonGroup>
             <Box>
-                <Grid container sx={{ display: 'flex', width: '70%', margin: 'auto' }} >
+                <Grid container sx={{ display: 'flex', margin: 'auto', justifyContent: 'center' }} >
                     {
                         data.map((item) => {
                             return (

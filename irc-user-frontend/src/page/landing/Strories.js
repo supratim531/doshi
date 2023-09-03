@@ -25,7 +25,7 @@ const data = [
 const Strories = () => {
     return (
         <Box sx={{ padding: '50px 0', backgroundColor: '#f7efff' }} >
-            <Typography gutterBottom variant='h4' sx={{textAlign:'center'}} >Client Success Stories</Typography>
+            <Typography gutterBottom variant='h4' sx={{textAlign:'center'}} >Victims of NON - COMPLIANCE & How we helped them</Typography>
             <Carousel variant="dark"  >
                 {
                     data.map((item) => {

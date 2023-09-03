@@ -1,4 +1,3 @@
-import React from 'react';
 import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -44,23 +43,23 @@ export default function Footer() {
                         <MDBCol md='2' lg='2' xl='2' className='mx-auto mb-4'>
                             <h6 className='text-uppercase fw-bold mb-4'>Products</h6>
                             <p  >
-                                <a href='#!' className='text-reset'>
-                                    ABC
+                                <a href='#!' className='text-reset' style={{ textDecoration: 'none' }}>
+                                    Tutorials For
                                 </a>
                             </p>
                             <p  >
                                 <a href='#!' className='text-reset'>
-                                    PQR
+                                    Startups & SMEs
                                 </a>
                             </p>
                             <p  >
                                 <a href='#!' className='text-reset'>
-                                    XYZ
+                                    Corporates
                                 </a>
                             </p>
                             <p  >
                                 <a href='#!' className='text-reset'>
-                                    SRS
+                                    Professionals
                                 </a>
                             </p>
                         </MDBCol>
@@ -69,22 +68,22 @@ export default function Footer() {
                             <h6 className='text-uppercase fw-bold mb-4'>Useful links</h6>
                             <p>
                                 <a href='#!' className='text-reset'>
-                                    Pricing
+                                    Privacy Policy
                                 </a>
                             </p>
                             <p>
                                 <a href='#!' className='text-reset'>
-                                    Settings
+                                    Terms & Conditions
                                 </a>
                             </p>
                             <p>
                                 <a href='#!' className='text-reset'>
-                                    Orders
+                                    Disclaimers
                                 </a>
                             </p>
                             <p>
                                 <a href='#!' className='text-reset'>
-                                    Help
+                                    Risk Declarations & References
                                 </a>
                             </p>
                         </MDBCol>
@@ -92,19 +91,18 @@ export default function Footer() {
                         <MDBCol md='4' lg='3' xl='3' className='mx-auto mb-md-0 mb-4'>
                             <h6 className='text-uppercase fw-bold mb-4'>Contact</h6>
                             <p>
-                                <LocationOnIcon />
-                                Shree Krishna Square, 2A, Grant Lane, 7th Floor, Suite No. 7-I, Kolkata – 700012 , West Bengal, India
+                                <LocationOnIcon sx={{ backgroundColor: '#D3D3D3', borderRadius: '9999px', padding: '2px 2px', fontSize: '28px' }} /> Shree Krishna Square, 2A, Grant Lane, 7th Floor, Suite No. 7-I, Kolkata – 700012 , West Bengal, India
                             </p>
                             <p>
-                                <EmailIcon />
-                                 info@instade.co.in              </p>
-                            <p>
+                                <EmailIcon /> info@instade.co.in
+                            </p>
+                            {/* <p>
                                 <Phone /> +91 033 2984 0022
                             </p>
                             <p>
                                 <WhatsApp />
                                 +91 9903 9898 13
-                            </p>
+                            </p> */}
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>

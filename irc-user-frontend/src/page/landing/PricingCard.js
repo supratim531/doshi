@@ -7,11 +7,12 @@ const PricingCard = (props) => {
     const list = props.list
     return (
 
-        <Grid item xs={12} sm={6} md={4} lg={3} xl={3} sx={{ display: 'flex', justifyContent: 'center'}} >
+        <Grid item sx={{ display: 'flex', gap: '10px', justifyContent: 'space-around' }} >
+            {/* <Grid item xs={12} sm={6} md={4} lg={3} xl={3} sx={{ display: 'flex', justifyContent: 'center',backgroundColor:"yellow"}} > */}
             <Box
                 sx={{
-                    margin: "20px ",
-                    maxWidth: '200px',
+                    margin: "20px 20px",
+                    // maxWidth: '200px',
                     padding: "12px",
                     border: "1px solid grey",
                     borderRadius: 3,
@@ -21,7 +22,7 @@ const PricingCard = (props) => {
                     ":hover": {
                         border: '2px solid purple'
                     },
-                    backgroundColor:'white'
+                    backgroundColor: 'white',
                 }}
             >
                 <Avatar
@@ -44,7 +45,7 @@ const PricingCard = (props) => {
                 </Typography>
                 <Button
                     variant="contained"
-                    sx={{ borderRadius: 5, padding: "5px 20px", margin: "20px",backgroundColor:'#0034ac'}}
+                    sx={{ borderRadius: 5, padding: "5px 20px", margin: "20px", backgroundColor: '#0034ac' }}
                 >
                     Buy Now
                 </Button>
@@ -52,19 +53,19 @@ const PricingCard = (props) => {
                 {
                     list.map((item) => {
                         return (
-                            <Box sx={{alignSelf:'start',display:'flex',margin:'3px 0'}} >
+                            <Box sx={{ alignSelf: 'start', display: 'flex', margin: '3px 0' }} >
 
-                                <DoneIcon sx={{ color: "green",margin:'0 3px '}} />
-                                <Typography sx={{ fontSize: "0.8rem"}}>
+                                <DoneIcon sx={{ color: "green", margin: '0 3px ' }} />
+                                <Typography sx={{ fontSize: "0.8rem" }}>
                                     {item}
                                 </Typography>
-                           </Box>
+                            </Box>
                         )
                     })
                 }
                 <Button
                     variant="contained"
-                    sx={{ borderRadius: 5,margin:'20px'}}
+                    sx={{ borderRadius: 5, margin: '20px' }}
                 >
                     Free Trial
                 </Button>
