@@ -4,8 +4,12 @@ import SlidingPanel from 'react-sliding-side-panel';
 import 'react-sliding-side-panel/lib/index.css';
 import { Record } from "../../model/record";
 
-import { Close } from "@mui/icons-material";
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 
+import { Close } from "@mui/icons-material";
 import { Parser } from 'html-to-react'
 import IRCDatePicker from "../../component/IRCDatePicker";
 import { Frequency } from "../../model/frequency";
@@ -18,9 +22,27 @@ type Props = {
 }
 
 const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
+    const [value, setValue] = React.useState('1');
     const [email, setEmail] = React.useState("");
     const [eventDate, setEventDate] = React.useState("");
     const [actualDueDate, setActualDueDate] = React.useState("");
+
+    React.useEffect(() => {
+        const keyDownHandler = (event: any) => {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                close();
+            }
+        };
+        document.addEventListener('keydown', keyDownHandler);
+        return () => {
+            document.removeEventListener('keydown', keyDownHandler);
+        };
+    }, []);
+
+    const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+        setValue(newValue);
+    };
 
     const getTaxPayers = () => {
         var data = record?.tax_payers.map(value => value.name);
@@ -91,91 +113,109 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
         <SlidingPanel
             type={'right'}
             isOpen={status}
-            size={30}
+            size={40}
         >
             <Box style={{ backgroundColor: 'white', height: '100vh', display: 'flex', flexDirection: 'column' }}>
-                <Box style={{ height: 100, borderBottom: '1px solid #ccc', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }} px={2}>
+                {/* <Box style={{ height: 100, borderBottom: '1px solid #ccc', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }} px={2}>
                     <Typography variant="h5">Compliance</Typography>
                     <button style={{ height: 40, width: 40, borderRadius: 20, border: 'none', backgroundColor: '#efefef' }} onClick={close}>
                         <Close />
                     </button>
-                </Box>
-                <Box p={2} style={{ flexGrow: 1, overflow: 'hidden', overflowY: 'scroll' }}>
-                    <Grid container spacing={2}>
-                        <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Record Type</Typography>
-                            <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.form_type}</Typography>
-                        </Grid>
-                        <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Regulator</Typography>
-                            <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.form?.act?.regulator.name} <InfoButton title={record?.form?.act?.regulator?.remarks} /></Typography>
-                        </Grid>
-                        <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Financial Year <InfoButton title={"Applicable Financial Year"} /></Typography>
-                            <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.financial_year.financial_year}</Typography>
-                        </Grid>
-                        <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Assesment Year <InfoButton title={"Applicable Assesment Year"} /></Typography>
-                            <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.financial_year.assesment_year}</Typography>
-                        </Grid>
-                        {record?.form_type !== 'even' ? (
-                            <Grid item md={6}>
-                                <Typography variant="body1" fontSize={16} fontWeight={700}>From Date <InfoButton title={"Starting of the Applicable Period for the Compliance"} /></Typography>
-                                <Typography variant="body1" fontSize={16} fontWeight={500}>{formatDate(record?.date_from)}</Typography>
-                            </Grid>
-                        ) : null
-                        }
+                </Box> */}
+                <Box p={0} style={{ flexGrow: 1, overflowX: 'hidden', overflowY: 'scroll' }}>
+                    <TabContext value={value}>
+                        <Box sx={{ borderBottom: 1, borderColor: 'divider', backgroundColor: "white", display: 'flex', justifyContent: "space-between", alignItems: 'center' }}>
+                            <TabList onChange={handleChange} aria-label="lab API tabs example">
+                                <Tab label="Details" value="1" />
+                                <Tab label="Comments" value="2" />
+                                <Tab label="Even Date Calculator" value="3" />
+                                <Tab label="Reminders" value="4" />
+                            </TabList>
+                            <button style={{ height: 40, width: 40, borderRadius: 20, border: 'none', backgroundColor: '#efefef' }} onClick={close}>
+                                <Close />
+                            </button>
+                        </Box>
+                        <TabPanel value="1" sx={{ overflowX: 'scroll' }}>
+                            <Grid container spacing={2}>
+                                <Grid item md={6}>
+                                    <Typography variant="body1" fontSize={16} fontWeight={700}>Record Type</Typography>
+                                    <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.form_type}</Typography>
+                                </Grid>
+                                <Grid item md={6}>
+                                    <Typography variant="body1" fontSize={16} fontWeight={700}>Regulator</Typography>
+                                    <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.form?.act?.regulator.name} <InfoButton title={record?.form?.act?.regulator?.remarks} /></Typography>
+                                </Grid>
+                                <Grid item md={6}>
+                                    <Typography variant="body1" fontSize={16} fontWeight={700}>Financial Year <InfoButton title={"Applicable Financial Year"} /></Typography>
+                                    <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.financial_year.financial_year}</Typography>
+                                </Grid>
+                                <Grid item md={6}>
+                                    <Typography variant="body1" fontSize={16} fontWeight={700}>Assesment Year <InfoButton title={"Applicable Assesment Year"} /></Typography>
+                                    <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.financial_year.assesment_year}</Typography>
+                                </Grid>
+                                {record?.form_type !== 'even' ? (
+                                    <Grid item md={6}>
+                                        <Typography variant="body1" fontSize={16} fontWeight={700}>From Date <InfoButton title={"Starting of the Applicable Period for the Compliance"} /></Typography>
+                                        <Typography variant="body1" fontSize={16} fontWeight={500}>{formatDate(record?.date_from)}</Typography>
+                                    </Grid>
+                                ) : null
+                                }
 
-                        {record?.form_type !== 'even' ? (
-                            <Grid item md={6}>
-                                <Typography variant="body1" fontSize={16} fontWeight={700}>To Date <InfoButton title={"Ending of the Applicable Period for the Compliance"} /></Typography>
-                                <Typography variant="body1" fontSize={16} fontWeight={500}>{formatDate(record?.date_to)}</Typography>
-                            </Grid>
-                        ) : null
-                        }
+                                {record?.form_type !== 'even' ? (
+                                    <Grid item md={6}>
+                                        <Typography variant="body1" fontSize={16} fontWeight={700}>To Date <InfoButton title={"Ending of the Applicable Period for the Compliance"} /></Typography>
+                                        <Typography variant="body1" fontSize={16} fontWeight={500}>{formatDate(record?.date_to)}</Typography>
+                                    </Grid>
+                                ) : null
+                                }
 
-                        <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Return Form Type <InfoButton title={"Includes Returns, Forms, Certifications, Annexures, Prescribed Formats and other applicable formats. Includes Compliances which needs to be done under various Acts"} /></Typography>
-                            <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.form.form_type}</Typography>
-                        </Grid>
-                        <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Returns / Forms / Certifications <InfoButton title={"Includes Returns, Forms, Certifications, Annexures, Prescribed Formats and other applicable formats"} /></Typography>
-                            <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.form.name}</Typography>
-                        </Grid>
+                                <Grid item md={6}>
+                                    <Typography variant="body1" fontSize={16} fontWeight={700}>Return Form Type <InfoButton title={"Includes Returns, Forms, Certifications, Annexures, Prescribed Formats and other applicable formats. Includes Compliances which needs to be done under various Acts"} /></Typography>
+                                    <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.form.form_type}</Typography>
+                                </Grid>
+                                <Grid item md={6}>
+                                    <Typography variant="body1" fontSize={16} fontWeight={700}>Returns / Forms / Certifications <InfoButton title={"Includes Returns, Forms, Certifications, Annexures, Prescribed Formats and other applicable formats"} /></Typography>
+                                    <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.form.name}</Typography>
+                                </Grid>
 
-                        <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Frequency <InfoButton title={"The interval or applicable tenure for compliance. See the Remarks for Specific Frequency selected"} /></Typography>
-                            <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.frequency.name} <InfoButton title={record?.frequency.remarks} /></Typography>
-                        </Grid>
+                                <Grid item md={6}>
+                                    <Typography variant="body1" fontSize={16} fontWeight={700}>Frequency <InfoButton title={"The interval or applicable tenure for compliance. See the Remarks for Specific Frequency selected"} /></Typography>
+                                    <Typography variant="body1" fontSize={16} fontWeight={500}>{record?.frequency.name} <InfoButton title={record?.frequency.remarks} /></Typography>
+                                </Grid>
 
-                        {record?.form_type === 'even' ? (
-                            <Grid item md={6}>
-                                <Grid container>
-                                    <IRCDatePicker
-                                        label="Event Date"
-                                        value={eventDate}
-                                        setStateValue={setEventDate}
-                                    />
+                                {record?.form_type === 'even' ? (
+                                    <Grid item md={6}>
+                                        <Grid container>
+                                            <IRCDatePicker
+                                                label="Event Date"
+                                                value={eventDate}
+                                                setStateValue={setEventDate}
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                ) : null
+                                }
+
+                                <Grid item md={6}>
+                                    <Typography variant="body1" fontSize={16} fontWeight={700}>Actual Due Date <InfoButton title={"The date by which the particular Form or Compliances needs to be performed as prescribed in the respective act. It is also the Key date for Trigger of Alerts & Notifications"} /></Typography>
+                                    <Typography variant="body1" fontSize={16} fontWeight={500}>{formatDate(actualDueDate)}</Typography>
+                                </Grid>
+
+                                <Grid item md={12}>
+                                    <Typography variant="body1" fontSize={16} fontWeight={700}>Tax Payers <InfoButton title={"Includes Type of Entity or Legal Structure or Applicable type of Taxpayer, this Needs to be selected in Profile > Settings. All Notifications shall be based on the Selected &quot;Tax Payer&quot; Type across the application. E.g., If your entity is OPC (One Person Company), then you need to select the same Tax Payer Type in the Profile > Settings or, if you are a Resident - Individual, then you need to select the same in the Profile > Settings All email alerts & Push Notifications shall be triggered on the basis of this."} /></Typography>
+                                    <Typography className="tax-payer-scrollbar" variant="body1" fontSize={16} fontWeight={500} sx={{ wordBreak: "break-all", height: "96px", overflowY: "scroll" }}>{getTaxPayers()}</Typography>
+                                </Grid>
+
+                                <Grid item md={12}>
+                                    <Typography variant="body1" fontSize={16} fontWeight={700}>Description <InfoButton title={"You may check the Description of each record for better understanding of the applicability of the compliance"} /></Typography>
+                                    {Parser().parse(record?.description)}
                                 </Grid>
                             </Grid>
-                        ) : null
-                        }
-
-                        <Grid item md={6}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Actual Due Date <InfoButton title={"The date by which the particular Form or Compliances needs to be performed as prescribed in the respective act. It is also the Key date for Trigger of Alerts & Notifications"} /></Typography>
-                            <Typography variant="body1" fontSize={16} fontWeight={500}>{formatDate(actualDueDate)}</Typography>
-                        </Grid>
-
-                        <Grid item md={12}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Tax Payers <InfoButton title={"Includes Type of Entity or Legal Structure or Applicable type of Taxpayer, this Needs to be selected in Profile > Settings. All Notifications shall be based on the Selected &quot;Tax Payer&quot; Type across the application. E.g., If your entity is OPC (One Person Company), then you need to select the same Tax Payer Type in the Profile > Settings or, if you are a Resident - Individual, then you need to select the same in the Profile > Settings All email alerts & Push Notifications shall be triggered on the basis of this."} /></Typography>
-                            <Typography className="tax-payer-scrollbar" variant="body1" fontSize={16} fontWeight={500} sx={{ wordBreak: "break-all", height: "96px", overflowY: "scroll" }}>{getTaxPayers()}</Typography>
-                        </Grid>
-
-                        <Grid item md={12}>
-                            <Typography variant="body1" fontSize={16} fontWeight={700}>Description <InfoButton title={"You may check the Description of each record for better understanding of the applicability of the compliance"} /></Typography>
-                            {Parser().parse(record?.description)}
-                        </Grid>
-                    </Grid>
+                        </TabPanel>
+                        <TabPanel value="2">Comments</TabPanel>
+                        <TabPanel value="3">Even Date Calculator</TabPanel>
+                        <TabPanel value="4">Reminders</TabPanel>
+                    </TabContext>
                 </Box>
 
                 <Box style={{ width: "100%", display: 'flex', borderTop: '1px solid #ccc', flexDirection: 'row', justifyContent: "space-between" }} pl={2} pr={4} py={2}>

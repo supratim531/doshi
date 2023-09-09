@@ -1,5 +1,5 @@
-import { Box, Typography } from '@mui/material'
 import React from 'react'
+import { Box, Typography } from '@mui/material'
 import Delhivery from './images/Delhivery.png'
 import Docusign from './images/DocuSign.png'
 import Compotax from './images/CompuTaxx.png'
@@ -8,8 +8,6 @@ import birdLogo from './images/birdLogo.png'
 import plus from './images/plusSign.jpg'
 import metro from './images/metro.png'
 import institute from './images/institute.png'
-
-
 
 const data = [Delhivery, Docusign, Compotax, Swal, birdLogo, plus, metro, institute]
 
@@ -47,4 +45,4 @@ const Clients = () => {
     )
 }
 
-export default Clients
+export default Clients;

@@ -15,10 +15,10 @@ const Intro = () => {
                         md: 'row'
                     }
                 }} >
-                    <Button variant='contained' sx={{ margin: '10px', borderRadius: 5, padding: '10px 20px', backgroundColor: '#0034ac' }} >
+                    <Button variant='contained' sx={{ margin: '10px 0px', borderRadius: 5, padding: '10px 20px', backgroundColor: '#0034ac' }} >
                         Download your Compliance Calendar
                     </Button>
-                    <Button variant='outlined' sx={{ margin: '10px', borderRadius: 5, padding: '10px 20px', color: '#0034ac', border: '1px solid #1c00ac' }} >
+                    <Button variant='outlined' sx={{ margin: '10px 0px', borderRadius: 5, padding: '10px 20px', color: '#0034ac', border: '1px solid #1c00ac' }} >
                         Scedule a Demo
                     </Button>
                 </Box>

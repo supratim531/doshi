@@ -27,7 +27,6 @@ const Home = () => {
       <Clients/>
       <Pricing/>
       <Footer/>
-      
     </>
   )
 }
