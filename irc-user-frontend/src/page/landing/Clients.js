@@ -17,14 +17,14 @@ const Clients = () => {
             <Box sx={{ maxWidth: '800px', margin: 'auto',marginBottom:'30px'}} >
                 <Typography sx={{ textAlign: 'center' }} >
                     {/* <span style={{ fontSize: '1.4rem' }}>We work with</span> */}
-                    <span style={{ fontSize: '2rem' }} >We work with large Fortune 100 companies, several banks and startups </span>
+                    // <span style={{ fontSize: '2rem' }} >We work with large Fortune 100 companies, several banks and startups </span>
+                    <span style={{ fontSize: '2rem' }} >We work with large corporates, practicing professionals, and startups </span>
                     {/* <span style={{ fontSize: '1.4rem' }}>to help build seamless customer journeys that eliminate paper and leverage data for real time insights and decisions.</span> */}
                 </Typography>
             </Box>
             <Box style={{ width: "80%", display: "flex", justifyContent: "center", margin: "0 auto", flexWrap: 'wrap' }} className="container row ">
                 {data.map((item) => {
                     return (
-
                         <img
                             src={item}
                             style={{
@@ -36,8 +36,6 @@ const Clients = () => {
                                 allign: "center",
                             }}
                         />
-
-
                     );
                 })}
             </Box>
