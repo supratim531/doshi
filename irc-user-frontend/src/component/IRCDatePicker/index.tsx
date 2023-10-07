@@ -9,9 +9,10 @@ type Props = {
     label: string,
     value: string,
     setStateValue: any,
+    disableOpenPicker?: boolean
 }
 
-const IRCDatePicker = ({ label, value, setStateValue }: Props) => {
+const IRCDatePicker = ({ label, value, setStateValue, disableOpenPicker = false }: Props) => {
     const formatDate = (date: Date) => {
         var month = '' + (date.getMonth() + 1);
         var day = '' + date.getDate();
@@ -46,6 +47,7 @@ const IRCDatePicker = ({ label, value, setStateValue }: Props) => {
             </LocalizationProvider> */}
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
+                    disableOpenPicker={disableOpenPicker}
                     label={label}
                     value={value ? dayjs(new Date(value)) : ''}
                     onChange={pickDate}

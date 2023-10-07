@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { Button, Box, Grid, Typography, TextField } from '@mui/material';
+import { Visibility } from "@mui/icons-material";
+import { Button, Box, Grid, Typography, TextField, IconButton, Tooltip } from '@mui/material';
 
 import { axiosClient } from '../../../../network/axiosClient';
 import { useNavigate } from 'react-router-dom';
@@ -126,6 +127,7 @@ export default function BusinessDetails({ business }: any) {
                             item
                         >
                             <TextField
+                                title={"Remarks"}
                                 label={businessDataField.name}
                                 variant="outlined"
                                 size="medium"

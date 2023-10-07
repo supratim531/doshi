@@ -19,6 +19,7 @@ const ClickableTable = ({ columns, tableData, onView }: Props) => {
 					size: 100,
 				},
 			}}
+			initialState={{ density: 'compact' }}
 			columns={columns}
 			data={tableData}
 			editingMode="modal"

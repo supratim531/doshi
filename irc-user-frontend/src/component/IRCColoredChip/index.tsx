@@ -4,6 +4,7 @@ type CProps = {
     backgroundColor: string;
     label?: string;
 }
+
 const IRCColoredChip = ({ backgroundColor, label }: CProps) => {
     const rbg = backgroundColor?.replace('#', '').match(/.{1,2}/g);
     let sum = 0;

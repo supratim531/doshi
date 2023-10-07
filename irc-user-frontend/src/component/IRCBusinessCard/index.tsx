@@ -50,7 +50,7 @@ const IRCBusinessCard = ({business}: Props) => {
 					flex: 1,
 				}}>
 					<Typography style={{
-						fontSize: 28,
+						fontSize: 22,
 						lineHeight: "28px",
 					}}>{business.name}</Typography>
 					<Typography>{business.pan}</Typography>

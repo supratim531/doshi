@@ -22,6 +22,7 @@ const columns = [
         columns: [
             {
                 id: 'regulatorName',
+                accessorKey: "form.act.regulator.name",
                 header: 'Regulator',
                 Cell: ({ row }: any) => (
                     <Box
@@ -37,18 +38,18 @@ const columns = [
             },
         ],
     },
+    {
+        accessorKey: "form.name",
+        header: "Form",
+    },
     // {
-    //     accessorKey: "form.name",
-    //     header: "Form",
+    //     accessorKey: "form_type",
+    //     header: "Compliance Type",
     // },
-    {
-        accessorKey: "form_type",
-        header: "Compliance Type",
-    },
-    {
-        accessorKey: "form.form_type",
-        header: "Form Type",
-    },
+    // {
+    //     accessorKey: "form.form_type",
+    //     header: "Form Type",
+    // },
     // {
     //     id: 'reg',
     //     columns: [
@@ -75,14 +76,14 @@ const columns = [
         accessorKey: "frequency.name",
         header: "Frequency",
     },
-    {
-        accessorKey: "date_from",
-        header: "From",
-    },
-    {
-        accessorKey: "date_to",
-        header: "To"
-    },
+    // {
+    //     accessorKey: "date_from",
+    //     header: "From",
+    // },
+    // {
+    //     accessorKey: "date_to",
+    //     header: "To"
+    // },
     {
         accessorKey: "actual_date",
         header: "Due Date"

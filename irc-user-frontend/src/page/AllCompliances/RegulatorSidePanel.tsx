@@ -187,6 +187,7 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
                                     <Grid item md={6}>
                                         <Grid container>
                                             <IRCDatePicker
+                                                disableOpenPicker={true}
                                                 label="Event Date"
                                                 value={eventDate}
                                                 setStateValue={setEventDate}
@@ -212,9 +213,33 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
                                 </Grid>
                             </Grid>
                         </TabPanel>
-                        <TabPanel value="2">Comments</TabPanel>
-                        <TabPanel value="3">Even Date Calculator</TabPanel>
-                        <TabPanel value="4">Reminders</TabPanel>
+
+                        {/* Rest 3 TabViews */}
+
+                        <TabPanel value="2">
+                            <Box style={{ width: "100%" }} pb={2}>
+                                <div className="">Comments</div>
+                                <input value={email} onChange={e => setEmail(e.target.value)} style={{ padding: "10px", width: "100%", borderRadius: "4px", border: "1px solid #7c8fac", fontSize: "16px" }} type="email" placeholder="Your comment" />
+                            </Box>
+                            <Button onClick={() => { alert("Under Developement!") }} variant="contained">Add</Button>
+                        </TabPanel>
+                        <TabPanel value="3">
+                            <div className="" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                                <div className="" style={{ paddingBottom: "20px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <img style={{ width: "70%", backgroundSize: "cover", backgroundPosition: "center" }} src="https://instade.co.in/irc/assets/user/images/pro.svg" alt="" />
+                                </div>
+                                <p style={{ textAlign: "center" }}>Have you missed excluding Sundays while counting a Due Date? The magic of Event based Compliance Date Calculations is here !!!</p>
+                            </div>
+                        </TabPanel>
+                        <TabPanel value="4">
+                            <div className="" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                                <div className="" style={{ paddingBottom: "20px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <img style={{ width: "70%", backgroundSize: "cover", backgroundPosition: "center" }} src="https://instade.co.in/irc/assets/user/images/pro.svg" alt="" />
+                                </div>
+                                <p>Ahaa!!! Bored of Getting the System Generated Reminders?</p>
+                                <p style={{ marginTop: "-12px" }}>Customise your Reminders here !!!</p>
+                            </div>
+                        </TabPanel>
                     </TabContext>
                 </Box>
 

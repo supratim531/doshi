@@ -44,6 +44,10 @@ const columns = [
         accessorKey: "role",
         header: "Role"
     },
+    {
+        accessorKey: "email",
+        header: "Email"
+    },
 ];
 
 
@@ -180,6 +184,7 @@ const BusinessDetailsPage = () => {
                                 />
                             }
                         />
+												
 
                         <CardContent>
                         	<TableComponent
