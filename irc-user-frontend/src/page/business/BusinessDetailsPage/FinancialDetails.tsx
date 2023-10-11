@@ -74,7 +74,7 @@ export default function FinancialDetails({business}: any) {
     const handleChange = (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
         setExpanded(newExpanded ? panel : false);
     };
-
+    //console.log(financialYears)
     return (
         <Box
             py={2}>

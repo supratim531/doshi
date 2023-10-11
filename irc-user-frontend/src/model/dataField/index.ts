@@ -45,6 +45,7 @@ export interface BusinessDataField {
     name: string,
     placeholder: string,
     value: string | null,
+    remarks:string
 }
 
 export interface DFWriteResponse {

@@ -123,6 +123,7 @@ const FinancialDetailsComponent = ({
                             item
                         >
                             <TextField
+                                title={threshold.remarks === null ? '' : threshold.remarks}
                                 label={threshold.name}
                                 variant="outlined"
                                 size="medium"

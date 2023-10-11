@@ -2,6 +2,7 @@ export interface FinancialYear{
     id: number;
     financial_year: string;
     assesment_year: string;
+    remarks:string;
 }
 
 export interface SimpleFinancialYear {

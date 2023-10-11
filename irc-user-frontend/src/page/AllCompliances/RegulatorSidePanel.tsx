@@ -14,6 +14,7 @@ import { Parser } from 'html-to-react'
 import IRCDatePicker from "../../component/IRCDatePicker";
 import { Frequency } from "../../model/frequency";
 import InfoButton from "../../component/InfoButton";
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 type Props = {
     status: boolean;
@@ -224,20 +225,35 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
                             <Button onClick={() => { alert("Under Developement!") }} variant="contained">Add</Button>
                         </TabPanel>
                         <TabPanel value="3">
-                            <div className="" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                            <div className="" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",height:"70vh" }}>
                                 <div className="" style={{ paddingBottom: "20px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                                     <img style={{ width: "70%", backgroundSize: "cover", backgroundPosition: "center" }} src="https://instade.co.in/irc/assets/user/images/pro.svg" alt="" />
                                 </div>
-                                <p style={{ textAlign: "center" }}>Have you missed excluding Sundays while counting a Due Date? The magic of Event based Compliance Date Calculations is here !!!</p>
+                                <div style={{paddingLeft:"15px",paddingRight:"15px"}}>
+                                    <p style={{ textAlign: "center" }}>Have you missed excluding Sundays while counting a Due Date? The magic of Event based Compliance Date Calculations is here !!!</p>
+                                </div>
+                                <p style={{ textAlign: "center",fontSize:"23px",fontWeight:"3px",color:"gray" }}>Available in Pro!</p>
+                                <button className="btn btn-primary notify_btn" style={{backgroundColor:"#346cb0",height:"35px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                                    <NotificationsIcon/>
+                                        
+                                    Subscribe!
+                                </button>
                             </div>
                         </TabPanel>
                         <TabPanel value="4">
-                            <div className="" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                            <div className="" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",height:"70vh" }}>
                                 <div className="" style={{ paddingBottom: "20px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                                     <img style={{ width: "70%", backgroundSize: "cover", backgroundPosition: "center" }} src="https://instade.co.in/irc/assets/user/images/pro.svg" alt="" />
                                 </div>
-                                <p>Ahaa!!! Bored of Getting the System Generated Reminders?</p>
-                                <p style={{ marginTop: "-12px" }}>Customise your Reminders here !!!</p>
+                                <div style={{paddingLeft:"15px",paddingRight:"15px"}}>
+                                    <p style={{ textAlign: "center" }}>Ahaa!!! Bored of Getting the System Generated Reminders? Customize your Reminders here!!!</p>
+                                </div>
+                                <p style={{ textAlign: "center",fontSize:"23px",fontWeight:"3px",color:"gray" }}>Available in Pro!</p>
+                                <button className="btn btn-primary notify_btn" style={{backgroundColor:"#346cb0",height:"35px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                                    <NotificationsIcon/>
+                                        
+                                    Subscribe!
+                                </button>
                             </div>
                         </TabPanel>
                     </TabContext>

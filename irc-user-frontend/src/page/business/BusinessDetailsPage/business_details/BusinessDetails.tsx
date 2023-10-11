@@ -90,6 +90,7 @@ export default function BusinessDetails({ business }: any) {
 
         updateBusinessDataField(writeBusinessDFBody);
     }
+    //console.log(businessDataFields)
 
     return (
         <Grid
@@ -127,7 +128,7 @@ export default function BusinessDetails({ business }: any) {
                             item
                         >
                             <TextField
-                                title={"Remarks"}
+                                title={businessDataField.remarks === null ? '' : businessDataField.remarks}
                                 label={businessDataField.name}
                                 variant="outlined"
                                 size="medium"
