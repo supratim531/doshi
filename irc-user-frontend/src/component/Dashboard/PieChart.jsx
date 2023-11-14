@@ -1,15 +1,15 @@
 import { PieChart } from 'react-minimal-pie-chart';
 
-function PieCharts() {
+function PieCharts({ record }) {
   return (
     <PieChart
-  data={[
-    { title: 'One', value: 10, color: 'red' },
-    { title: 'Two', value: 15, color: '#F6BE00 ' },
-    { title: 'Three', value: 20, color: 'teal' },
-  ]}
-/>
+      data={[
+        { title: 'One', value: record?.record_count, color: 'red' },
+        { title: 'Two', value: record?.record_odd, color: '#F6BE00 ' },
+        { title: 'Three', value: record?.record_even, color: 'teal' },
+      ]}
+    />
   )
 }
 
-export default PieCharts
+export default PieCharts;

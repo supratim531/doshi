@@ -110,6 +110,11 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
         return "Enter Event Date First";
     }
 
+    function testEmailShare() {
+        console.log(record?.description);
+        console.log(Parser().parse(record?.description));
+    }
+
     return (
         <SlidingPanel
             type={'right'}
@@ -225,33 +230,33 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
                             <Button onClick={() => { alert("Under Developement!") }} variant="contained">Add</Button>
                         </TabPanel>
                         <TabPanel value="3">
-                            <div className="" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",height:"70vh" }}>
+                            <div className="" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "70vh" }}>
                                 <div className="" style={{ paddingBottom: "20px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                                     <img style={{ width: "70%", backgroundSize: "cover", backgroundPosition: "center" }} src="https://instade.co.in/irc/assets/user/images/pro.svg" alt="" />
                                 </div>
-                                <div style={{paddingLeft:"15px",paddingRight:"15px"}}>
+                                <div style={{ paddingLeft: "15px", paddingRight: "15px" }}>
                                     <p style={{ textAlign: "center" }}>Have you missed excluding Sundays while counting a Due Date? The magic of Event based Compliance Date Calculations is here !!!</p>
                                 </div>
-                                <p style={{ textAlign: "center",fontSize:"23px",fontWeight:"3px",color:"gray" }}>Available in Pro!</p>
-                                <button className="btn btn-primary notify_btn" style={{backgroundColor:"#346cb0",height:"35px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                                    <NotificationsIcon/>
-                                        
+                                <p style={{ textAlign: "center", fontSize: "23px", fontWeight: "3px", color: "gray" }}>Available in Pro!</p>
+                                <button className="btn btn-primary notify_btn" style={{ backgroundColor: "#346cb0", height: "35px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                                    <NotificationsIcon />
+
                                     Subscribe!
                                 </button>
                             </div>
                         </TabPanel>
                         <TabPanel value="4">
-                            <div className="" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",height:"70vh" }}>
+                            <div className="" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "70vh" }}>
                                 <div className="" style={{ paddingBottom: "20px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                                     <img style={{ width: "70%", backgroundSize: "cover", backgroundPosition: "center" }} src="https://instade.co.in/irc/assets/user/images/pro.svg" alt="" />
                                 </div>
-                                <div style={{paddingLeft:"15px",paddingRight:"15px"}}>
+                                <div style={{ paddingLeft: "15px", paddingRight: "15px" }}>
                                     <p style={{ textAlign: "center" }}>Ahaa!!! Bored of Getting the System Generated Reminders? Customize your Reminders here!!!</p>
                                 </div>
-                                <p style={{ textAlign: "center",fontSize:"23px",fontWeight:"3px",color:"gray" }}>Available in Pro!</p>
-                                <button className="btn btn-primary notify_btn" style={{backgroundColor:"#346cb0",height:"35px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                                    <NotificationsIcon/>
-                                        
+                                <p style={{ textAlign: "center", fontSize: "23px", fontWeight: "3px", color: "gray" }}>Available in Pro!</p>
+                                <button className="btn btn-primary notify_btn" style={{ backgroundColor: "#346cb0", height: "35px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                                    <NotificationsIcon />
+
                                     Subscribe!
                                 </button>
                             </div>
@@ -261,7 +266,7 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
 
                 <Box style={{ width: "100%", display: 'flex', borderTop: '1px solid #ccc', flexDirection: 'row', justifyContent: "space-between" }} pl={2} pr={4} py={2}>
                     <input value={email} onChange={e => setEmail(e.target.value)} style={{ padding: "10px", width: "75%", borderRadius: "4px", border: "1px solid #7c8fac", fontSize: "16px" }} type="email" placeholder="Enter Email ID" />
-                    <Button onClick={() => { alert("Under Developement!") }} variant="contained">Share</Button>
+                    <Button onClick={testEmailShare} variant="contained">Share</Button>
                 </Box>
             </Box>
         </SlidingPanel>

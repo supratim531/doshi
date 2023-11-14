@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, CardContent, CardHeader } from "@mui/material";
+import { Box, CardContent, CardHeader, Chip } from "@mui/material";
 import MasterHeader from '../../component/MasterHeader';
 import IRCPageLoader from '../../component/IRCPageLoader';
 
@@ -13,10 +13,6 @@ import RegulatorSidePanel from "./RegulatorSidePanel";
 import IRCColoredChip from "../../component/IRCColoredChip";
 
 const columns = [
-    // {
-    //     accessorKey: "form.act.regulator.name",
-    //     header: "Regulator",
-    // },
     {
         id: 'regulator',
         columns: [
@@ -39,17 +35,72 @@ const columns = [
         ],
     },
     {
+        accessorKey: "form.act.name",
+        header: "Act",
+    },
+    {
+        accessorKey: "form_type",
+        header: "Compliance Type",
+    },
+    {
         accessorKey: "form.name",
         header: "Form",
     },
-    // {
-    //     accessorKey: "form_type",
-    //     header: "Compliance Type",
-    // },
-    // {
-    //     accessorKey: "form.form_type",
-    //     header: "Form Type",
-    // },
+    {
+        accessorKey: "form.form_type",
+        header: "Form Type",
+    },
+    {
+        accessorKey: "frequency.name",
+        header: "Frequency",
+    },
+    {
+        accessorKey: "frequency.frequency_type",
+        header: "Frequency Type",
+    },
+    {
+        accessorKey: "financial_year.financial_year",
+        header: "Financial Year",
+    },
+    {
+        accessorKey: "financial_year.assesment_year",
+        header: "Assesment Year",
+    },
+    {
+        accessorKey: "date_from",
+        header: "From",
+    },
+    {
+        accessorKey: "date_to",
+        header: "To"
+    },
+    {
+        accessorKey: "actual_date",
+        header: "Due Date"
+    },
+
+    // replication...
+
+    {
+        accessorKey: "extended_due_date_1",
+        header: "Extended Due Date 1"
+    },
+    {
+        accessorKey: "extended_due_date_2",
+        header: "Extended Due Date 2"
+    },
+    {
+        accessorKey: "extended_due_date_3",
+        header: "Extended Due Date 3"
+    },
+    {
+        accessorKey: "extended_due_date_4",
+        header: "Extended Due Date 4"
+    },
+    {
+        accessorKey: "extended_due_date_5",
+        header: "Extended Due Date 5"
+    },
     // {
     //     id: 'reg',
     //     columns: [
@@ -71,23 +122,7 @@ const columns = [
     //             ),
     //         },
     //     ],
-    // },
-    {
-        accessorKey: "frequency.name",
-        header: "Frequency",
-    },
-    // {
-    //     accessorKey: "date_from",
-    //     header: "From",
-    // },
-    // {
-    //     accessorKey: "date_to",
-    //     header: "To"
-    // },
-    {
-        accessorKey: "actual_date",
-        header: "Due Date"
-    }
+    // }
 ];
 
 const AllCompliances = () => {

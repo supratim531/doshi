@@ -1,8 +1,9 @@
+import { axiosClient } from '../../network/axiosClient'
 import InfoButton from '../InfoButton'
 import PieCharts from './PieChart'
 import SpeedoChart from './SpeedoChart'
 
-function ChartBase() {
+function ChartBase({ record }) {
   return (
     <>
       <div style={{ display: "flex" }}>
@@ -21,14 +22,14 @@ function ChartBase() {
           </div>
 
           <div style={{ width: "200px", height: "200px" }}>
-            <PieCharts />
+            <PieCharts record={record} />
           </div>
 
           <div className='block max-w-sm p-6 bg-white' style={{ height: "80px", width: "inherit", display: "flex", alignItems: "center", justifyContent: "space-evenly" }}>
             <div style={{ "height": "50px", width: "100px", display: "flex", alignItems: "center", flexDirection: "column", justifyContent: "center" }}>
               <div style={{ width: "inherit", height: "50%", display: "flex", alignItems: "center", gap: "10px" }}>
                 <div style={{ height: "10px", width: "10px", backgroundColor: "red", borderRadius: "50%" }}></div>
-                <span style={{ fontSize: "12px", fontWeight: "bold" }}>(331) <span>100%</span></span>
+                <span style={{ fontSize: "12px", fontWeight: "bold" }}>({record?.record_count}) <span>100%</span></span>
               </div>
               <p style={{ fontSize: "12px" }}>Total</p>
             </div>
@@ -36,7 +37,7 @@ function ChartBase() {
             <div style={{ "height": "50px", width: "100px", display: "flex", alignItems: "center", flexDirection: "column", justifyContent: "center" }}>
               <div style={{ width: "inherit", height: "50%", display: "flex", alignItems: "center", gap: "10px" }}>
                 <div style={{ height: "10px", width: "10px", backgroundColor: "#F6BE00", borderRadius: "50%" }}></div>
-                <span style={{ fontSize: "12px", fontWeight: "bold" }}>(229) <span>69%</span></span>
+                <span style={{ fontSize: "12px", fontWeight: "bold" }}>({record?.record_odd}) <span>{(record?.record_odd / record?.record_count) * 100}%</span></span>
               </div>
               <p style={{ fontSize: "12px" }}>Odd</p>
             </div>
@@ -44,7 +45,7 @@ function ChartBase() {
             <div style={{ "height": "50px", width: "100px", display: "flex", alignItems: "center", flexDirection: "column", justifyContent: "center" }}>
               <div style={{ width: "inherit", height: "50%", display: "flex", alignItems: "center", gap: "10px" }}>
                 <div style={{ height: "10px", width: "10px", backgroundColor: "teal", borderRadius: "50%" }}></div>
-                <span style={{ fontSize: "12px", fontWeight: "bold" }}>(102) <span>30%</span></span>
+                <span style={{ fontSize: "12px", fontWeight: "bold" }}>({record?.record_even}) <span>{(record?.record_even / record?.record_count) * 100}%</span></span>
               </div>
               <p style={{ fontSize: "12px" }}>Even</p>
             </div>
