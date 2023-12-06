@@ -7,6 +7,7 @@ import PowerfulPlatform from './PowerfulPlatform'
 import Clients from './Clients'
 import Strories from './Strories'
 import Footer from './Footer'
+import Team from './Team'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Home = () => {
@@ -14,19 +15,20 @@ const Home = () => {
   const token = localStorage.getItem('token');
 
   React.useEffect(() => {
-    if(token){      
+    if (token) {
       navigate('dashboard');
     }
   }, [token])
   return (
     <>
-      <NavComponent/>
-      <Intro/>
-      <PowerfulPlatform/>
-      <Strories/>
-      <Clients/>
-      <Pricing/>
-      <Footer/>
+      <NavComponent />
+      <Intro />
+      <PowerfulPlatform />
+      <Strories />
+      <Clients />
+      <Pricing />
+      <Team />
+      <Footer />
     </>
   )
 }

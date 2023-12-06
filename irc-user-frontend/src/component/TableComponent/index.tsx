@@ -22,6 +22,7 @@ const TableComponent = ({ columns, tableData, onEdit, onDelete }: Props) => {
         },
       }}
       columns={columns}
+      initialState={{ density: 'compact' }}
       data={tableData}
       editingMode="modal"
       enableColumnOrdering

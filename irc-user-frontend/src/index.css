@@ -12,6 +12,10 @@ code {
     monospace;
 } */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 #scroll-container {
     /* border: 3px solid black; */
     border-radius: 5px;
@@ -35,6 +39,7 @@ code {
     from {
         -moz-transform: translateX(100%);
     }
+
     to {
         -moz-transform: translateX(-100%);
     }
@@ -47,6 +52,7 @@ code {
     from {
         -webkit-transform: translateX(100%);
     }
+
     to {
         -webkit-transform: translateX(-100%);
     }
@@ -58,6 +64,7 @@ code {
         -webkit-transform: translateX(100%);
         transform: translateX(100%);
     }
+
     to {
         -moz-transform: translateX(-100%);
         -webkit-transform: translateX(-100%);
