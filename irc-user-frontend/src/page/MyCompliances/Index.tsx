@@ -38,6 +38,18 @@ const columns = [
         ],
     },
     {
+        accessorKey: "form.name",
+        header: "Form",
+    },
+    {
+        accessorKey: "frequency.name",
+        header: "Frequency",
+    },
+    {
+        accessorKey: "actual_date",
+        header: "Due Date"
+    },
+    {
         accessorKey: "form.act.name",
         header: "Act",
     },
@@ -46,16 +58,8 @@ const columns = [
         header: "Compliance Type",
     },
     {
-        accessorKey: "form.name",
-        header: "Form",
-    },
-    {
         accessorKey: "form.form_type",
         header: "Form Type",
-    },
-    {
-        accessorKey: "frequency.name",
-        header: "Frequency",
     },
     {
         accessorKey: "frequency.frequency_type",
@@ -76,10 +80,6 @@ const columns = [
     {
         accessorKey: "date_to",
         header: "To"
-    },
-    {
-        accessorKey: "actual_date",
-        header: "Due Date"
     },
 
     // replication...

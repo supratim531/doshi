@@ -110,9 +110,38 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
         return "Enter Event Date First";
     }
 
-    function testEmailShare() {
-        console.log(record?.description);
-        console.log(Parser().parse(record?.description));
+    function sendEmail() {
+        const subject = `${record?.form.name} ${record?.financial_year.financial_year} - IRC`;
+        let body = [
+            `Regulator: ${record?.form.act.regulator.name}`,
+            `Act: ${record?.form.act.name}`,
+            `Section: ${[record?.form.sections?.map(e => e.name)].join(", ")}`,
+            `Form Name: ${record?.form.name}`,
+            `Form Type: ${record?.form.form_type}`,
+            `Compliance Type: ${record?.form_type}`,
+            `Frequency: ${record?.frequency.name}`,
+            `Frequency Type: ${record?.frequency.frequency_type}`,
+            `Assesment Year: ${record?.financial_year.assesment_year}`,
+            `Financial Year: ${record?.financial_year.financial_year}`,
+            `Due Date: ${record?.actual_date ? record?.actual_date : "NIL"}`,
+            `From Date: ${record?.date_from ? record?.date_from : "NIL"}`,
+            `To Date: ${record?.date_to ? record?.date_to : "NIL"}`,
+            `Tax Payers: ${[record?.tax_payers.map(e => e.name)].join(", ")}`,
+            `States: ${record?.states?.length === 0 ? "All States" : [record?.states?.map(e => e.name)].join(", ")}`,
+            ``,
+            `Extended Due Date 1: ${record?.extended_due_date_1 ? record?.extended_due_date_1 : "NIL"}`,
+            `Extended Due Date 1 Remarks: ${record?.extended_due_date_remark_1 ? record?.extended_due_date_remark_1 : "NIL"}`,
+            `Extended Due Date 2: ${record?.extended_due_date_2 ? record?.extended_due_date_2 : "NIL"}`,
+            `Extended Due Date 2 Remarks: ${record?.extended_due_date_remark_2 ? record?.extended_due_date_remark_2 : "NIL"}`,
+            `Extended Due Date 3: ${record?.extended_due_date_3 ? record?.extended_due_date_3 : "NIL"}`,
+            `Extended Due Date 3 Remarks: ${record?.extended_due_date_remark_3 ? record?.extended_due_date_remark_3 : "NIL"}`,
+            `Extended Due Date 4: ${record?.extended_due_date_4 ? record?.extended_due_date_4 : "NIL"}`,
+            `Extended Due Date 4 Remarks: ${record?.extended_due_date_remark_4 ? record?.extended_due_date_remark_4 : "NIL"}`,
+            `Extended Due Date 5: ${record?.extended_due_date_5 ? record?.extended_due_date_5 : "NIL"}`,
+            `Extended Due Date 5 Remarks: ${record?.extended_due_date_remark_5 ? record?.extended_due_date_remark_5 : "NIL"}`
+        ].join("%0D%0A");
+
+        window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
     }
 
     return (
@@ -264,9 +293,11 @@ const RegulatorSidePanel = ({ status, setStatus, record }: Props) => {
                     </TabContext>
                 </Box>
 
-                <Box style={{ width: "100%", display: 'flex', borderTop: '1px solid #ccc', flexDirection: 'row', justifyContent: "space-between" }} pl={2} pr={4} py={2}>
-                    <input value={email} onChange={e => setEmail(e.target.value)} style={{ padding: "10px", width: "75%", borderRadius: "4px", border: "1px solid #7c8fac", fontSize: "16px" }} type="email" placeholder="Enter Email ID" />
-                    <Button onClick={testEmailShare} variant="contained">Share</Button>
+                <Box style={{ width: "100%", display: 'flex', borderTop: '1px solid #ccc', flexDirection: 'row', justifyContent: "space-between", gap: "6px" }} pl={2} pr={4} py={2}>
+                    <input value={email} onChange={e => setEmail(e.target.value)} style={{ padding: "10px", flexGrow: 1, borderRadius: "4px", border: "1px solid #7c8fac", fontSize: "16px" }} type="email" placeholder="Enter Email ID" />
+                    {/* <a href="mailto:supratimmajumder531@gmail.com?subject=Meeting%20Agenda&body=Hi,%20let's%20discuss%20the%20agenda%20for%20our%20upcoming%20meeting">Send Email</a> */}
+                    <Button onClick={sendEmail} variant="contained">Share</Button>
+                    <Button sx={{ fontSize: "12px", cursor: "not-allowed" }} disabled variant="outlined">Mark Complete</Button>
                 </Box>
             </Box>
         </SlidingPanel>
